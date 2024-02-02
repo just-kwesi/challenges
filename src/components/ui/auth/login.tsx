@@ -37,20 +37,14 @@ export function LoginForm({}) {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     const res = await login(data)
-    console.log(res)
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-4/6 sm:w-full space-y-6"
+      >
         <FormField
           control={form.control}
           name="email"
