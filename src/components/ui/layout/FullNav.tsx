@@ -11,10 +11,10 @@ export function FullNav() {
     <div className="mr-4 hidden sm:flex">
       <Link href="/" className="mr-10 flex items-center space-x-2">
         <span className="hidden font-normal  sm:inline-block text-muted-foreground">
-          200IQ Plays
+          @game-clips
         </span>
       </Link>
-      <nav className="flex items-center gap-6 text-sm">
+      {/* <nav className="flex items-center gap-6 text-sm">
         <Link
           href="/"
           className={cn(
@@ -60,7 +60,7 @@ export function FullNav() {
         >
           Contact
         </Link>
-      </nav>
+      </nav> */}
     </div>
   )
 }

@@ -15,7 +15,7 @@ export function SiteHeader() {
             <Link href="/login">Login</Link>
           </Button>
           <Button asChild>
-            <Link href="/login">Signup</Link>
+            <Link href="/signup">Signup</Link>
           </Button>
           <ModeToggle />
         </div>
