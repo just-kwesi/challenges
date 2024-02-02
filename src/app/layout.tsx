@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ThemeProvider } from '@/components/theme-provider'
 import { cn } from '@/lib/utils'
 import './globals.css'
+
+import { SiteHeader } from '@/components/ui/layout/SiteHeader'
+// import { SiteFooter } from '@/components/ui/layout/SiteFooter'
+import { ThemeProvider } from '@/components/theme-provider'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -33,7 +37,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="relative flex min-h-screen flex-col bg-background max-w-screen-lg mx-auto">
+            <SiteHeader />
+            <main className="flex-1">{children}</main>
+            <Toaster />
+            {/* <SiteFooter /> */}
+          </div>
         </ThemeProvider>
       </body>
     </html>
