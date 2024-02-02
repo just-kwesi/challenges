@@ -10,7 +10,9 @@ export function FullNav() {
   return (
     <div className="mr-4 hidden sm:flex">
       <Link href="/" className="mr-10 flex items-center space-x-2">
-        <span className="hidden font-normal sm:inline-block">200IQ Plays</span>
+        <span className="hidden font-normal  sm:inline-block text-muted-foreground">
+          200IQ Plays
+        </span>
       </Link>
       <nav className="flex items-center gap-6 text-sm">
         <Link
