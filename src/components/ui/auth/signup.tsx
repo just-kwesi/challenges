@@ -50,7 +50,7 @@ export function SignupForm({}) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
         <FormField
           control={form.control}
           name="email"
@@ -58,7 +58,7 @@ export function SignupForm({}) {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Email" {...field} />
+                <Input placeholder="name@example.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -77,7 +77,9 @@ export function SignupForm({}) {
             </FormItem>
           )}
         />
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit" className="w-full">
+          Sign Up with Email
+        </Button>
       </form>
     </Form>
   )
