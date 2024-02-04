@@ -18,12 +18,18 @@ import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 import Link from 'next/link'
 
-export const FormSchema = z.object({
-  email: z.string().email({ message: 'Invalid email address' }),
-  password: z
-    .string()
-    .min(8, { message: 'Password must be at least 8 characters long' }),
-})
+export const FormSchema = z
+  .object({
+    email: z.string().email({ message: 'Invalid email address' }),
+    password: z
+      .string()
+      .min(8, { message: 'Password must be at least 8 characters long' }),
+    passwordConfirm: z.string(),
+  })
+  .refine((data) => data.password === data.passwordConfirm, {
+    message: 'Passwords do not match',
+    path: ['passwordConfirm'],
+  })
 
 export type FormData = z.infer<typeof FormSchema>
 
@@ -33,6 +39,7 @@ export function SignupForm({}) {
     defaultValues: {
       email: '',
       password: '',
+      passwordConfirm: '',
     },
   })
 
@@ -69,6 +76,19 @@ export function SignupForm({}) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input placeholder="••••••••" {...field} type="password" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="passwordConfirm"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
               <FormControl>
                 <Input placeholder="••••••••" {...field} type="password" />
               </FormControl>
