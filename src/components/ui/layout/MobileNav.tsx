@@ -7,8 +7,6 @@ import Link, { LinkProps } from 'next/link'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { usePathname } from 'next/navigation'
-import Image from 'next/image'
-// import logo from '@/assets/logo.png'
 
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
