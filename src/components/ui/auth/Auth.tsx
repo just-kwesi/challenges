@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { UserNav } from '@/components/ui/auth/UserNav'
 import { getUserdata } from '@/app/(auth)/actions'
+import { FileVideo } from 'lucide-react'
 
 export default async function AuthButton() {
   const supabase = createClient()
@@ -27,6 +28,11 @@ export default async function AuthButton() {
   return user ? (
     <div className="flex items-center gap-4">
       <div className="ml-auto flex items-center space-x-4">
+        <Button asChild>
+          <Link href="/submit-video">
+            <FileVideo className="mr-2 h-4 w-4" /> Submit
+          </Link>
+        </Button>
         <UserNav signout={signOut} userProfile={userProfile} />
       </div>
     </div>
