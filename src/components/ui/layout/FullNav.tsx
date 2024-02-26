@@ -11,7 +11,7 @@ export function FullNav() {
     <div className="mr-4 hidden sm:flex">
       <Link href="/" className="mr-10 flex items-center space-x-2">
         <span className="hidden font-normal  sm:inline-block text-muted-foreground">
-          @game-clips
+          @Klipped
         </span>
       </Link>
       {/* <nav className="flex items-center gap-6 text-sm">
