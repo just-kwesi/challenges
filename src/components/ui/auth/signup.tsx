@@ -47,7 +47,7 @@ export const FormSchema = z
 export type SignupData = z.infer<typeof FormSchema>
 
 export function SignupForm({}) {
-  const form = useForm<z.infer<typeof FormSchema>>({
+  const form = useForm<SignupData>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: '',
@@ -60,7 +60,7 @@ export function SignupForm({}) {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     const res = await signup(data)
-    console.log(res)
+    // console.log(res)
     toast({
       title: 'Please confirm your email address.',
       description: 'Check your inbox for the confirmation email.',
