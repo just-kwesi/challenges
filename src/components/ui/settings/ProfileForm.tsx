@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from '@/components/ui/use-toast'
 import { userProfileData } from '@/lib/types/auth'
+import { updateUserprofile } from '@/lib/database/actions'
 
 const userProfileSchema = z.object({
   full_name: z
@@ -50,12 +51,14 @@ export default function Profile({ userData }: { userData: userProfileData }) {
     mode: 'onChange',
   })
 
-  function onSubmit(data: ProfileFormValues) {
+  async function onSubmit(data: ProfileFormValues) {
+    const { full_name, bio } = data
+    await updateUserprofile({ full_name, bio })
     toast({
       title: 'You submitted the following values:',
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          <p className="text-white">Your Account details has been updated</p>
         </pre>
       ),
     })
@@ -71,11 +74,7 @@ export default function Profile({ userData }: { userData: userProfileData }) {
             <FormItem>
               <FormLabel>Full Name</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="John Doe"
-                  {...field}
-                  defaultValue={userData?.full_name}
-                />
+                <Input placeholder="John Doe" {...field} />
               </FormControl>
               <FormDescription>
                 Name asscociated with the account. Can be your real name or
@@ -93,12 +92,7 @@ export default function Profile({ userData }: { userData: userProfileData }) {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input
-                  placeholder={userData?.username}
-                  {...field}
-                  defaultValue={userData?.username}
-                  disabled
-                />
+                <Input placeholder={userData?.username} {...field} disabled />
               </FormControl>
               <FormDescription>
                 This is your public display name.
