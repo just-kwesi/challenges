@@ -49,7 +49,7 @@ export async function signup(data: SignupData) {
 
 export async function getUserdata(userId: string) {
   const supabase = createClient()
-  const res = {}
+  // const res = {}
 
   const { data, error } = await supabase
     .from('profiles')

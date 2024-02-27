@@ -125,6 +125,7 @@ export type Database = {
           description: string | null
           game_id: string | null
           id: string
+          reviewed: boolean | null
           submitted_on: string | null
           title: string
           url: string
@@ -136,6 +137,7 @@ export type Database = {
           description?: string | null
           game_id?: string | null
           id?: string
+          reviewed?: boolean | null
           submitted_on?: string | null
           title: string
           url: string
@@ -147,6 +149,7 @@ export type Database = {
           description?: string | null
           game_id?: string | null
           id?: string
+          reviewed?: boolean | null
           submitted_on?: string | null
           title?: string
           url?: string
