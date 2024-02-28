@@ -85,7 +85,6 @@ export type GameCategories =
     }
 
 export async function getGamesAndCategories() {
-  const supabase = createClient()
   const { data: gamesData, error: gamesError } = await supabase
     .from('games')
     .select('name, id,description')
@@ -111,4 +110,24 @@ export async function getGamesAndCategories() {
     gamesData,
     categoriesData,
   }
+}
+
+export async function getSignedInUserProfile() {
+  const userSession = (await supabase.auth.getSession()).data.session
+
+  if (!userSession) {
+    redirect('/login')
+  }
+  const userId = userSession.user.id
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id, full_name, username, avatar_url, bio')
+    .eq('id', userId)
+    .single()
+
+  if (error) {
+    redirect('/error')
+  }
+  return data
 }

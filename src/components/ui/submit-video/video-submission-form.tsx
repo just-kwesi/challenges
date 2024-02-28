@@ -78,6 +78,7 @@ export function SubmissionForm(gameData: any) {
       title,
       game_id: game,
       category_id: category,
+      reviewed: false,
     }
     await submitVideo(vidData)
     toast({
