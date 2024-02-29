@@ -1,7 +1,7 @@
 'use server'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, unstable_noStore as noStore } from 'next/cache'
 
 import { Database, Tables, Enums } from '@/lib/database/supabase.types'
 

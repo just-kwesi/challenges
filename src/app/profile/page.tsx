@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import Videos from '@/components/ui/videos/videos'
 import { Separator } from '@/components/ui/separator'
 import { getSignedInUserProfile } from '@/lib/database/actions'
 
@@ -32,6 +33,7 @@ export default async function UserProfile() {
         <h2 className="text-2xl font-normal tracking-tight">Videos</h2>
       </div>
       <Separator className="my-6" />
+      <Videos />
     </main>
   )
 }
