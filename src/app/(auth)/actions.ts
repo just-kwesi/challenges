@@ -53,7 +53,7 @@ export async function getUserdata(userId: string) {
 
   const { data, error } = await supabase
     .from('profiles')
-    .select('id, full_name, username, avatar_url')
+    .select('id, full_name, username, avatar_url, bio')
     .eq('id', userId)
     .single()
 
