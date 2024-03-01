@@ -14,13 +14,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { userProfileData } from '@/lib/types/auth'
+import { Tables } from '@/lib/database/supabase.types'
 
 export function UserNav({
   signout,
   userProfile,
 }: {
   signout: () => Promise<void>
-  userProfile: userProfileData
+  userProfile: Tables<'profiles'> | undefined
 }) {
   const pathname = usePathname()
   const username = userProfile ? userProfile.username : 'example_username'

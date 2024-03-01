@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { UserNav } from '@/components/ui/auth/UserNav'
 import { getUserdata } from '@/app/(auth)/actions'
 import { FileVideo } from 'lucide-react'
+import { Tables } from '@/lib/database/supabase.types'
 
 export default async function AuthButton() {
   const supabase = createClient()
@@ -14,7 +15,9 @@ export default async function AuthButton() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  const userProfile = user ? (await getUserdata(user.id)).data : undefined
+  const userProfile = user
+    ? ((await getUserdata(user.id)).data as Tables<'profiles'>)
+    : null
   // console.log(userProfile)
 
   const signOut = async () => {
@@ -33,7 +36,7 @@ export default async function AuthButton() {
             <FileVideo className="mr-2 h-4 w-4" /> Submit
           </Link>
         </Button>
-        <UserNav signout={signOut} userProfile={userProfile} />
+        <UserNav signout={signOut} userProfile={userProfile || undefined} />
       </div>
     </div>
   ) : (
