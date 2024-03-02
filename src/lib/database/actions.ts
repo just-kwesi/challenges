@@ -3,6 +3,9 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache'
 
+import { FormData } from '@/components/ui/auth/login'
+import { SignupData } from '@/components/ui/auth/signup'
+
 import { Database, Tables, Enums } from '@/lib/database/supabase.types'
 
 export type userProfile = {
@@ -11,6 +14,63 @@ export type userProfile = {
 }
 // supabase client
 const supabase = createClient()
+
+export async function login(data: FormData) {
+  const { error } = await supabase.auth.signInWithPassword(data)
+
+  if (error) {
+    return {
+      error: { error: error.name, message: error.message },
+    }
+  }
+
+  revalidatePath('/', 'layout')
+  redirect('/')
+}
+
+export async function signup(data: SignupData) {
+  const signupData = {
+    email: data.email,
+    password: data.password,
+    options: {
+      data: {
+        full_name: data.full_name,
+        username: data.username,
+      },
+    },
+  }
+
+  const { error } = await supabase.auth.signUp(signupData)
+  // const { error } = await supabase.auth.signUp(data)
+
+  if (error) {
+    return { error: error.name, message: error.message }
+    // redirect(`/login/error?${error.message}`)
+  }
+
+  revalidatePath('/', 'layout')
+  redirect('/')
+}
+
+export async function getUserdata(userId: string) {
+  const supabase = createClient()
+  // const res = {}
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id, full_name, username, avatar_url, bio')
+    .eq('id', userId)
+    .single()
+
+  if (error) {
+    return {
+      error: { error: error.code, message: error.message },
+    }
+  }
+  return {
+    data: { ...data },
+  }
+}
 
 export async function updateUserprofile({ full_name, bio }: userProfile) {
   const userSession = (await supabase.auth.getSession()).data.session

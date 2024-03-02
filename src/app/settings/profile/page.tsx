@@ -1,7 +1,7 @@
 import { Separator } from '@/components/ui/separator'
 import { createClient } from '@/lib/supabase/server'
 import ProfileForm from '@/components/ui/settings/ProfileForm'
-import { getUserdata } from '@/app/(auth)/actions'
+import { getUserdata } from '@/lib/database/actions'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { Tables } from '@/lib/database/supabase.types'
@@ -20,18 +20,17 @@ export default async function SettingsProfilePage() {
   if (!userData) {
     revalidatePath('/', 'layout')
     redirect('/login')
-  } else {
-    return (
-      <div className="space-y-6 mt-3">
-        <div>
-          <h3 className="text-lg font-medium">Profile</h3>
-          <p className="text-sm text-muted-foreground">
-            This is how others will see you on the site.
-          </p>
-        </div>
-        <Separator />
-        <ProfileForm userData={userData} />
-      </div>
-    )
   }
+  return (
+    <div className="space-y-6 mt-3">
+      <div>
+        <h3 className="text-lg font-medium">Profile</h3>
+        <p className="text-sm text-muted-foreground">
+          This is how others will see you on the site.
+        </p>
+      </div>
+      <Separator />
+      <ProfileForm userData={userData} />
+    </div>
+  )
 }

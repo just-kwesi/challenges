@@ -4,7 +4,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { UserNav } from '@/components/ui/auth/UserNav'
-import { getUserdata } from '@/app/(auth)/actions'
+import { getUserdata } from '@/lib/database/actions'
 import { FileVideo } from 'lucide-react'
 import { Tables } from '@/lib/database/supabase.types'
 
