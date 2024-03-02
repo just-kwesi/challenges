@@ -13,9 +13,9 @@ export type userProfile = {
   bio: string
 }
 // supabase client
-const supabase = createClient()
 
 export async function login(data: FormData) {
+  const supabase = createClient()
   const { error } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
@@ -29,6 +29,7 @@ export async function login(data: FormData) {
 }
 
 export async function signup(data: SignupData) {
+  const supabase = createClient()
   const signupData = {
     email: data.email,
     password: data.password,
@@ -73,6 +74,7 @@ export async function getUserdata(userId: string) {
 }
 
 export async function updateUserprofile({ full_name, bio }: userProfile) {
+  const supabase = createClient()
   const userSession = (await supabase.auth.getSession()).data.session
   if (!userSession) redirect('/login')
 
@@ -98,6 +100,7 @@ export type videoData = Omit<
 >
 
 export async function submitVideo(videoData: videoData) {
+  const supabase = createClient()
   const user = (await supabase.auth.getUser()).data.user
 
   if (!user) redirect('/login')
@@ -145,6 +148,7 @@ export type GameCategories =
     }
 
 export async function getGamesAndCategories() {
+  const supabase = createClient()
   const { data: gamesData, error: gamesError } = await supabase
     .from('games')
     .select('name, id,description')
@@ -173,6 +177,7 @@ export async function getGamesAndCategories() {
 }
 
 export async function getSignedInUserProfile() {
+  const supabase = createClient()
   const userSession = (await supabase.auth.getSession()).data.session
 
   if (!userSession) {
