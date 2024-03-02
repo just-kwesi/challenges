@@ -7,13 +7,14 @@ import { FormData } from '@/components/ui/auth/login'
 import { SignupData } from '@/components/ui/auth/signup'
 
 import { Database, Tables, Enums } from '@/lib/database/supabase.types'
+import { QueryResult, QueryData, QueryError } from '@supabase/supabase-js'
 
 export type userProfile = {
   full_name: string
   bio: string
 }
-// supabase client
 
+// * LOGIN
 export async function login(data: FormData) {
   const supabase = createClient()
   const { error } = await supabase.auth.signInWithPassword(data)
@@ -28,6 +29,7 @@ export async function login(data: FormData) {
   redirect('/')
 }
 
+// * SIGNUP
 export async function signup(data: SignupData) {
   const supabase = createClient()
   const signupData = {
@@ -53,6 +55,7 @@ export async function signup(data: SignupData) {
   redirect('/')
 }
 
+// * USERDATA
 export async function getUserdata(userId: string) {
   const supabase = createClient()
   // const res = {}
@@ -73,6 +76,7 @@ export async function getUserdata(userId: string) {
   }
 }
 
+// * UPDATE USER DATA
 export async function updateUserprofile({ full_name, bio }: userProfile) {
   const supabase = createClient()
   const userSession = (await supabase.auth.getSession()).data.session
@@ -99,6 +103,7 @@ export type videoData = Omit<
   'id' | 'created_at' | 'submitted_on' | 'user_id'
 >
 
+// * SUBMIT VIDEO TO DATABASE
 export async function submitVideo(videoData: videoData) {
   const supabase = createClient()
   const user = (await supabase.auth.getUser()).data.user
@@ -147,6 +152,7 @@ export type GameCategories =
       error?: undefined
     }
 
+// * GET GAMES AND CATEGORIES
 export async function getGamesAndCategories() {
   const supabase = createClient()
   const { data: gamesData, error: gamesError } = await supabase
@@ -176,6 +182,7 @@ export async function getGamesAndCategories() {
   }
 }
 
+// *
 export async function getSignedInUserProfile() {
   const supabase = createClient()
   const userSession = (await supabase.auth.getSession()).data.session
@@ -195,4 +202,44 @@ export async function getSignedInUserProfile() {
     redirect('/error')
   }
   return data
+}
+
+// * GET USER VIDEOS
+export async function getUserVideos() {
+  try {
+    const supabase = createClient()
+    const userSession = (await supabase.auth.getSession()).data.session
+    if (!userSession) {
+      redirect('/login')
+    }
+    const userId = userSession.user.id
+
+    let videosWithDataQuery = supabase
+      .from('videos')
+      .select(
+        `
+    id, title, description ,url,reviewed,
+    games (
+      name
+    ), 
+    categories (
+      name
+    ),
+    profiles (
+      username,
+      id
+    )
+  `
+      )
+      .eq('user_id', userId)
+      .range(0, 99)
+
+    type videosWithData = QueryData<typeof videosWithDataQuery>
+    const { data, error } = await videosWithDataQuery
+    if (error) throw error
+    const videoData: videosWithData = data
+    return { success: videoData }
+  } catch (error) {
+    return { error }
+  }
 }
