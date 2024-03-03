@@ -9,15 +9,6 @@ import {
 } from '@/components/ui/table'
 import { videosWithData } from '@/lib/database/types'
 
-type videoData = {
-  games: { name: string }
-  title: string
-  categories: { name: string }
-  reviewed: boolean
-}
-
-export type videoDataList = videoData[]
-
 export function VideoList({ videoList }: { videoList: videosWithData }) {
   return (
     <Table>
