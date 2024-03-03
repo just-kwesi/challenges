@@ -18,3 +18,21 @@ export type videosWithData = {
     id: string
   } | null
 }[]
+
+export type videoRowData = {
+  id: string
+  title: string
+  description: string | null
+  url: string
+  reviewed: boolean | null
+  games: {
+    name: string
+  } | null
+  categories: {
+    name: string
+  } | null
+  profiles: {
+    username: string | null
+    id: string
+  } | null
+}

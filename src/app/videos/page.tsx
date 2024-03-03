@@ -1,6 +1,5 @@
 import { Separator } from '@/components/ui/separator'
 import { getUserVideos } from '@/lib/database/actions'
-import { VideoList } from '@/components/ui/videos-page/videos-list'
 import { DataTable } from '@/components/ui/videos-page/data-table'
 import { toast } from '@/components/ui/use-toast'
 import Link from 'next/link'
@@ -39,7 +38,7 @@ export default async function VideosPage() {
     <div>
       {data && (
         <>
-          <div className="h-full flex-1 flex-col space-y-8 p-8 flex">
+          <div className="h-full flex-1 flex-col space-y-4 p-8 flex">
             <div className="flex items-center justify-between space-y-2">
               <div>
                 <h2 className="text-2xl font-bold tracking-tight">
@@ -50,8 +49,7 @@ export default async function VideosPage() {
                 </p>
               </div>
             </div>
-            {/* <VideoList videoList={success} /> */}
-            <DataTable columns={columns} data={data} />
+            <DataTable columns={columns} data={success!} />
           </div>
         </>
       )}
