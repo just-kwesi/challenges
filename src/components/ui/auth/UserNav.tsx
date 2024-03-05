@@ -14,13 +14,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { userProfileData } from '@/lib/types/auth'
+import { Tables } from '@/lib/database/supabase.types'
 
 export function UserNav({
   signout,
   userProfile,
 }: {
   signout: () => Promise<void>
-  userProfile: userProfileData
+  userProfile: Tables<'profiles'> | undefined
 }) {
   const pathname = usePathname()
   const username = userProfile ? userProfile.username : 'example_username'
@@ -50,10 +51,10 @@ export function UserNav({
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <Link
-              href="/settings/profile"
+              href="/profile"
               className={cn(
                 'transition-colors hover:text-foreground/80',
-                pathname === '/settings/profile'
+                pathname === '/profile'
                   ? 'text-foreground/60'
                   : 'text-foreground'
               )}
@@ -73,6 +74,20 @@ export function UserNav({
               )}
             >
               Videos
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem>
+            <Link
+              href="/settings/profile"
+              className={cn(
+                'transition-colors hover:text-foreground/80',
+                pathname === '/settings/profile'
+                  ? 'text-foreground/60'
+                  : 'text-foreground'
+              )}
+            >
+              Settings
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>

@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { login } from '@/app/(auth)/actions'
+import { login } from '@/lib/database/actions'
 import { Button } from '@/components/ui/button'
 import {
   Form,

@@ -4,7 +4,9 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { UserNav } from '@/components/ui/auth/UserNav'
-import { getUserdata } from '@/app/(auth)/actions'
+import { getUserdata } from '@/lib/database/actions'
+import { FileVideo } from 'lucide-react'
+import { Tables } from '@/lib/database/supabase.types'
 
 export default async function AuthButton() {
   const supabase = createClient()
@@ -13,7 +15,9 @@ export default async function AuthButton() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  const userProfile = user ? (await getUserdata(user.id)).data : undefined
+  const userProfile = user
+    ? ((await getUserdata(user.id)).data as Tables<'profiles'>)
+    : null
   // console.log(userProfile)
 
   const signOut = async () => {
@@ -27,7 +31,12 @@ export default async function AuthButton() {
   return user ? (
     <div className="flex items-center gap-4">
       <div className="ml-auto flex items-center space-x-4">
-        <UserNav signout={signOut} userProfile={userProfile} />
+        <Button asChild>
+          <Link href="/submit-video">
+            <FileVideo className="mr-2 h-4 w-4" /> Submit
+          </Link>
+        </Button>
+        <UserNav signout={signOut} userProfile={userProfile || undefined} />
       </div>
     </div>
   ) : (

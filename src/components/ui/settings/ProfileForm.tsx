@@ -2,8 +2,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { Tables } from '@/lib/database/supabase.types'
 
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -37,13 +37,17 @@ const userProfileSchema = z.object({
     ),
 })
 
-type ProfileFormValues = z.infer<typeof userProfileSchema>
+export type ProfileFormValues = z.infer<typeof userProfileSchema>
 
-export default function Profile({ userData }: { userData: userProfileData }) {
+export default function Profile({
+  userData,
+}: {
+  userData: Tables<'profiles'>
+}) {
   const defaultValues: Partial<ProfileFormValues> = {
-    bio: 'Example: Top 500 in Overwatch and Apex Pred.',
-    username: userData?.username,
-    full_name: userData?.full_name,
+    bio: userData.bio || 'Example: Top 500 in Overwatch and Apex Pred.',
+    username: userData.username || '',
+    full_name: userData.full_name || '',
   }
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(userProfileSchema),
@@ -92,7 +96,11 @@ export default function Profile({ userData }: { userData: userProfileData }) {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder={userData?.username} {...field} disabled />
+                <Input
+                  placeholder={userData.username || 'username'}
+                  {...field}
+                  disabled
+                />
               </FormControl>
               <FormDescription>
                 This is your public display name.
