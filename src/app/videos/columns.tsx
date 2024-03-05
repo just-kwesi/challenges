@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { ColumnDef } from '@tanstack/react-table'
 
 import { videoRowData } from '@/lib/database/types'
@@ -19,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { DataTableColumnHeader } from './data-table-column-header'
+import { cn } from '@/lib/utils'
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -50,10 +52,17 @@ export const columns: ColumnDef<videoRowData>[] = [
       <DataTableColumnHeader column={column} title="Title" />
     ),
     cell: ({ row }) => {
+      const videoId = row.original.id
+
       return (
-        <span className="max-w-[500px] truncate font-medium">
-          {row.getValue('title')}
-        </span>
+        <Link
+          href={`/videos/${videoId}`}
+          className={cn('transition-colors hover:text-foreground/80')}
+        >
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue('title')}
+          </span>
+        </Link>
       )
     },
   },
@@ -103,7 +112,7 @@ export const columns: ColumnDef<videoRowData>[] = [
     id: 'actions',
     cell: ({ row }) => {
       const video = row.original
-      console.log(`video, ${video}`)
+      //   console.log(`video, ${video}`)
 
       return (
         <DropdownMenu>

@@ -5,6 +5,7 @@ import { toast } from '@/components/ui/use-toast'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { VideoType, columns } from './columns'
+import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
 
 export default async function VideosPage() {
   const { error, success } = await getUserVideos()
@@ -38,7 +39,13 @@ export default async function VideosPage() {
     <div>
       {data && (
         <>
-          <div className="h-full flex-1 flex-col space-y-4 p-8 flex">
+          <Breadcrumbs
+            breadcrumbs={[
+              { label: 'Home', href: '/' },
+              { label: 'User Videos', href: '/videos', active: true },
+            ]}
+          />
+          <div className="h-full flex-1 flex-col space-y-4 px-8 flex">
             <div className="flex items-center justify-between space-y-2">
               <div>
                 <h2 className="text-2xl font-bold tracking-tight">
