@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { submitVideo, GameCategories } from '@/lib/database/actions'
-import { cn } from '@/lib/utils'
+import React, { ChangeEvent, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 
@@ -51,8 +51,17 @@ const videoFormSchema = z.object({
 
 type VideoFormValues = z.infer<typeof videoFormSchema>
 
-export function SubmissionForm(gameData: any) {
-  const { error, gamesData, categoriesData } = gameData.gamesData
+interface VideoSubmissionFormProps {
+  onVideoUrlChange: (url: string) => void
+  data: any
+  // Include other props as needed
+}
+
+export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
+  data,
+  onVideoUrlChange,
+}) => {
+  const { error, gamesData, categoriesData } = data
   if (error) {
     toast({
       variant: 'destructive',
@@ -89,6 +98,11 @@ export function SubmissionForm(gameData: any) {
         </pre>
       ),
     })
+  }
+
+  const handleVideoUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    onVideoUrlChange(value)
   }
 
   return (
@@ -167,7 +181,14 @@ export function SubmissionForm(gameData: any) {
                 Link to Video (Youtube, Twitch, Streamable, etc)
               </FormLabel>
               <FormControl>
-                <Input placeholder="https://" {...field} />
+                <Input
+                  placeholder="https://"
+                  {...field}
+                  onChange={(e) => {
+                    field.onChange(e) // Call the default form handling
+                    handleVideoUrlChange(e) // Handle the video URL change
+                  }}
+                />
               </FormControl>
               <FormDescription>
                 Paste in the full url of the video resource
@@ -237,7 +258,7 @@ export function SubmissionForm(gameData: any) {
             {form.formState.errors.acceptTerms.message}
           </p>
         )}
-        <Button type="submit">Update profile</Button>
+        <Button type="submit">Submit Video</Button>
       </form>
     </Form>
   )

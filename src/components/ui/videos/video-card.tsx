@@ -22,7 +22,7 @@ export function VideoCard({
   views,
 }: VideoCardProps) {
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg">
+    <div className="max-w-[275px] min-h-[300px] rounded overflow-hidden shadow-lg">
       <div className="relative">
         <Image
           className="w-full"
@@ -31,27 +31,27 @@ export function VideoCard({
           height={128}
           width={128}
         />
-        <p className="absolute bottom-2 right-2 rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+        <p className="absolute bottom-2 right-2 rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-semibold">
           {duration}
         </p>
       </div>
       <div className="px-6 py-4">
         <div className="flex items-center space-x-2 mb-2">
           <Image
-            className="w-8 h-8 rounded-full"
+            className="w-7 h-7 rounded-full"
             src={avatar}
             alt={`${username}'s avatar`}
             height={32}
             width={32}
           />
-          <p className="text-xl text-muted-foreground">{username}</p>
+          <p className="text-base text-muted-foreground">{username}</p>
         </div>
 
-        <h4 className="scroll-m-20 text-xl font-semibold tracking-tight mb-2">
+        <h4 className="scroll-m-20 text-lg font-normal tracking-tight mt-4 text-balance ">
           {title}
         </h4>
 
-        <div className="flex justify-between items-center text-sm text-muted-foreground">
+        <div className="flex justify-between items-center text-xs text-muted-foreground mt-6">
           <p>{timeSubmitted}</p>
           <p>{views} votes</p>
         </div>
