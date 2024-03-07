@@ -4,7 +4,25 @@ import { VideoCard } from '@/components/ui/videos/video-card'
 // Sample video data
 const videos = [
   {
-    thumbnail: 'https://via.placeholder.com/210x118',
+    thumbnail: 'https://youtu.be/p96Nt66RWXA',
+    duration: '10:15',
+    username: 'SampleUser',
+    title: 'How to Use Tailwind CSS with React',
+    timeSubmitted: '2 hours ago',
+    avatar: 'https://ui-avatars.com/api/?name=${username}&background=random',
+    views: '1.2K',
+  },
+  {
+    thumbnail: 'https://youtu.be/p96Nt66RWXA',
+    duration: '10:15',
+    username: 'SampleUser',
+    title: 'How to Use Tailwind CSS with React',
+    timeSubmitted: '2 hours ago',
+    avatar: 'https://ui-avatars.com/api/?name=${username}&background=random',
+    views: '1.2K',
+  },
+  {
+    thumbnail: 'https://youtu.be/p96Nt66RWXA',
     duration: '10:15',
     username: 'SampleUser',
     title: 'How to Use Tailwind CSS with React',

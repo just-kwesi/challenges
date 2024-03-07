@@ -1,5 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import Link from 'next/link'
 
 // Define the interface for props
 interface VideoCardProps {
@@ -11,6 +14,14 @@ interface VideoCardProps {
   avatar: string
   views: string
 }
+
+// Import VideoPlayer dynamically and disable SSR
+const VideoPlayerNoSSR = dynamic(
+  () => import('@/components/ui/videos/light-video-player'),
+  {
+    ssr: false,
+  }
+)
 
 export function VideoCard({
   thumbnail,
@@ -24,13 +35,10 @@ export function VideoCard({
   return (
     <div className="max-w-[275px] min-h-[300px] rounded overflow-hidden shadow-lg">
       <div className="relative">
-        <Image
-          className="w-full"
-          src={thumbnail}
-          alt={`${title} Video thumbnail`}
-          height={128}
-          width={128}
-        />
+        <Link href={'/'} passHref>
+          <VideoPlayerNoSSR url={thumbnail} />
+        </Link>
+
         <p className="absolute bottom-2 right-2 rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-semibold">
           {duration}
         </p>

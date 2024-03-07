@@ -18,9 +18,7 @@ export default function Breadcrumbs({
       aria-label="Breadcrumb"
       className="mb-3 mt-3 flex items-center flex-wrap pl-8"
     >
-      <ol
-        className={cn('flex scroll-m-20 text-xl font-semibold tracking-tight')}
-      >
+      <ol className={cn('flex scroll-m-20 text-base font-medium space-x-1')}>
         {breadcrumbs.map((breadcrumb, index) => (
           <li
             key={breadcrumb.href}
@@ -38,7 +36,7 @@ export default function Breadcrumbs({
               )}
             </Link>
             {index < breadcrumbs.length - 1 ? (
-              <ChevronRight className="h-5 w-5 mx-3 inline-block" />
+              <ChevronRight className="h-5 w-5 inline-block" />
             ) : null}
           </li>
         ))}

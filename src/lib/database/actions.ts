@@ -232,7 +232,6 @@ export async function getUserVideos() {
   `
       )
       .eq('user_id', userId)
-      .range(0, 99)
 
     type videosWithData = QueryData<typeof videosWithDataQuery>
     const { data, error } = await videosWithDataQuery
@@ -241,5 +240,26 @@ export async function getUserVideos() {
     return { success: videoData }
   } catch (error) {
     return { error }
+  }
+}
+
+// * Get game details
+// * game title,description,image,id
+export async function getGameDetails() {
+  try {
+    const supabase = createClient()
+
+    const gamesDataQuery = supabase.from('gameimages').select(`image_url,
+        games(id,name,description)`)
+
+    type gamesData = QueryData<typeof gamesDataQuery>
+    const { data, error } = await gamesDataQuery
+    if (error) throw error
+    const games: gamesData = data
+    return { success: games }
+  } catch (error) {
+    return {
+      error: error,
+    }
   }
 }
