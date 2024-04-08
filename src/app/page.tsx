@@ -14,19 +14,26 @@ export default async function Home() {
             <DocsSidebarNav items={SidebarDoc} />
           </ScrollArea>
         </aside>
-        <div className="flex flex-col sm:flex-row gap-10 flex-wrap items-center justify-center">
-          {success &&
-            success?.map((game, index) => {
-              return (
-                <GameCard
-                  key={index}
-                  imageUrl={game.image_url}
-                  title={game.games!.name}
-                  description={game.games!.description || 'Description'}
-                  href={game.games!.slug || '/'}
-                />
-              )
-            })}
+        <div>
+          <div className="space-y-0.5 mt-5 text-center">
+            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-5">
+              Games
+            </h3>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-10 flex-wrap items-center justify-center">
+            {success &&
+              success?.map((game, index) => {
+                return (
+                  <GameCard
+                    key={index}
+                    imageUrl={game.image_url}
+                    title={game.games!.name}
+                    description={game.games!.description || 'Description'}
+                    href={game.games!.slug || '/'}
+                  />
+                )
+              })}
+          </div>
         </div>
       </div>
     </main>

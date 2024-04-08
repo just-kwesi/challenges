@@ -17,7 +17,6 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from '@/components/ui/use-toast'
-import { userProfileData } from '@/lib/types/auth'
 import { updateUserprofile } from '@/lib/database/actions'
 
 const userProfileSchema = z.object({

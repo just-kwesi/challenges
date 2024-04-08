@@ -263,3 +263,61 @@ export async function getGameDetails() {
     }
   }
 }
+
+// * get a singular game details
+export async function getGameInfo(slug: string) {
+  try {
+    const supabase = createClient()
+    const { data, error } = await supabase
+      .from('games')
+      .select('id,name')
+      .eq('slug', slug)
+    if (error) throw error
+    return { success: data[0] }
+  } catch (error) {
+    return {
+      error: error,
+    }
+  }
+}
+
+//  * Videos list with infinite scrolling
+export async function getGameVideos(
+  game: string,
+  clipsSeen: string[],
+  gameId: string
+) {
+  try {
+    const supabase = createClient()
+
+    const videosQuery = supabase
+      .from('videos')
+      .select(
+        `
+    id, title, description ,url, 
+    categories (
+      name
+    ),
+    profiles (
+      username,
+      id
+    )
+  `
+      )
+      .eq('game_id', gameId)
+      .not('id', 'in', `(${clipsSeen.join(',')})`)
+      .order('random()')
+      .limit(20)
+
+    type videosData = QueryData<typeof videosQuery>
+
+    const { data, error } = await videosQuery
+    if (error) throw error
+    const videos: videosData = data
+    return { success: videos }
+  } catch (error) {
+    return {
+      error: error,
+    }
+  }
+}

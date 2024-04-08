@@ -6,12 +6,12 @@ export const SidebarDoc: SidebarNavItem[] = [
     items: [
       {
         title: 'Videos',
-        href: '/game/apex-legend',
+        href: '/game/apex-legends/videos',
         items: [],
       },
       {
         title: 'Charts',
-        href: '/game/apex-legend',
+        href: '/game/apex-legends/charts',
         items: [],
       },
     ],
@@ -21,12 +21,12 @@ export const SidebarDoc: SidebarNavItem[] = [
     items: [
       {
         title: 'Videos',
-        href: '/game/apex-legend',
+        href: '/games/call-of-duty/videos',
         items: [],
       },
       {
         title: 'Charts',
-        href: '/game/apex-legend',
+        href: '/games/call-of-duty/charts',
         items: [],
       },
     ],
@@ -36,12 +36,12 @@ export const SidebarDoc: SidebarNavItem[] = [
     items: [
       {
         title: 'Videos',
-        href: '/game/apex-legend',
+        href: '/games/fortnite/videos',
         items: [],
       },
       {
         title: 'Charts',
-        href: '/game/apex-legend',
+        href: '/games/fortnite/charts',
         items: [],
       },
     ],
@@ -51,12 +51,12 @@ export const SidebarDoc: SidebarNavItem[] = [
     items: [
       {
         title: 'Videos',
-        href: '/game/apex-legend',
+        href: '/game/overwatch-2/videos',
         items: [],
       },
       {
         title: 'Charts',
-        href: '/game/apex-legend',
+        href: '/game/overwatch-2/charts',
         items: [],
       },
     ],
@@ -66,12 +66,12 @@ export const SidebarDoc: SidebarNavItem[] = [
     items: [
       {
         title: 'Videos',
-        href: '/game/apex-legend',
+        href: '/games/valorant/videos',
         items: [],
       },
       {
         title: 'Charts',
-        href: '/game/apex-legend',
+        href: '/games/valorant/charts',
         items: [],
       },
     ],
