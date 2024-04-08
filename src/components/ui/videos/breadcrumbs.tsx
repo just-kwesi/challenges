@@ -8,11 +8,7 @@ interface Breadcrumb {
   active?: boolean
 }
 
-export default function Breadcrumbs({
-  breadcrumbs,
-}: {
-  breadcrumbs: Breadcrumb[]
-}) {
+export function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
   return (
     <nav
       aria-label="Breadcrumb"
@@ -42,5 +38,68 @@ export default function Breadcrumbs({
         ))}
       </ol>
     </nav>
+  )
+}
+
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
+
+export default function BreadcrumbCollapsed({
+  breadcrumbs,
+}: {
+  breadcrumbs: Breadcrumb[]
+}) {
+  return (
+    <Breadcrumb
+      aria-label="Breadcrumb"
+      className="mb-3 mt-3 flex items-center flex-wrap pl-8"
+    >
+      <BreadcrumbList>
+        {breadcrumbs.map((breadcrumb, index) => (
+          <>
+            <BreadcrumbItem key={breadcrumb.href}>
+              <BreadcrumbLink asChild>
+                <Link href={breadcrumb.href}>{breadcrumb.label}</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            {index < breadcrumbs.length - 1 ? <BreadcrumbSeparator /> : null}
+          </>
+        ))}
+      </BreadcrumbList>
+    </Breadcrumb>
+  )
+}
+
+export function BreadcrumbWithCustomSeparator() {
+  return (
+    <Breadcrumb
+      aria-label="Breadcrumb"
+      className="mb-3 mt-3 flex items-center flex-wrap pl-8"
+    >
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink>
+            <Link href="/">Home</Link>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbLink>
+            <Link href="/components">Components</Link>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
   )
 }

@@ -6,6 +6,7 @@ import { GameCard } from '@/components/ui/homepage/game-card'
 
 export default async function Home() {
   const { success, error } = await getGameDetails()
+  console.log(success)
   return (
     <main className="border-b">
       <div className="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-3 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-2">
