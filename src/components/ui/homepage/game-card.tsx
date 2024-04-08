@@ -28,10 +28,10 @@ export const GameCard = ({ imageUrl, description, title, href }: cardProps) => {
       </div>
       <div className="px-6 pt-4 pb-4 flex justify-between">
         <Button asChild variant="outline">
-          <Link href={href}>Videos</Link>
+          <Link href={`/games/${href}/videos`}>Videos</Link>
         </Button>
         <Button asChild variant="outline">
-          <Link href={href}>Charts</Link>
+          <Link href={`/games/${href}/charts`}>Charts</Link>
         </Button>
       </div>
     </div>

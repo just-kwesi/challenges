@@ -250,7 +250,7 @@ export async function getGameDetails() {
     const supabase = createClient()
 
     const gamesDataQuery = supabase.from('gameimages').select(`image_url,
-        games(id,name,description)`)
+        games(id,name,description,slug)`)
 
     type gamesData = QueryData<typeof gamesDataQuery>
     const { data, error } = await gamesDataQuery
