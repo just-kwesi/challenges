@@ -282,16 +282,22 @@ export async function getGameInfo(slug: string) {
 }
 
 //  * Videos list with infinite scrolling
-export async function getGameVideos(
-  game: string,
-  clipsSeen: string[],
-  gameId: string
-) {
+
+const videoMapping = {
+  '8997b0e9-c765-4226-a676-b4f903a8fe9e': 'apex',
+  '78e04f44-0b45-41a6-8645-3c046f26383f': 'overwatch',
+  'c4549d44-8d8a-45cb-a884-c01ef963a3cd': 'valorant',
+  'ece2105b-a41d-44a8-b5fb-fe28d29abb36': 'cod',
+  '1d1570ff-123b-4be5-97da-d1ac04f6723d': 'fortnite',
+}
+export async function getGameVideos(clipsSeen: string[], gameId: string) {
   try {
     const supabase = createClient()
+    const videTable = videoMapping[gameId as keyof typeof videoMapping]
+    console.log(videTable)
 
     const videosQuery = supabase
-      .from('videos')
+      .from(videTable)
       .select(
         `
     id, title, description ,url, 
@@ -306,7 +312,6 @@ export async function getGameVideos(
       )
       .eq('game_id', gameId)
       .not('id', 'in', `(${clipsSeen.join(',')})`)
-      .order('random()')
       .limit(20)
 
     type videosData = QueryData<typeof videosQuery>

@@ -213,6 +213,41 @@ export type Database = {
             foreignKeyName: "votes_video_id_fkey"
             columns: ["video_id"]
             isOneToOne: false
+            referencedRelation: "apex"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "votes_video_id_fkey"
+            columns: ["video_id"]
+            isOneToOne: false
+            referencedRelation: "cod"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "votes_video_id_fkey"
+            columns: ["video_id"]
+            isOneToOne: false
+            referencedRelation: "fortnite"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "votes_video_id_fkey"
+            columns: ["video_id"]
+            isOneToOne: false
+            referencedRelation: "overwatch"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "votes_video_id_fkey"
+            columns: ["video_id"]
+            isOneToOne: false
+            referencedRelation: "valorant"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "votes_video_id_fkey"
+            columns: ["video_id"]
+            isOneToOne: false
             referencedRelation: "videos"
             referencedColumns: ["id"]
           },
@@ -220,7 +255,191 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      apex: {
+        Row: {
+          category_id: string | null
+          created_at: string | null
+          description: string | null
+          game_id: string | null
+          id: string | null
+          reviewed: boolean | null
+          submitted_on: string | null
+          title: string | null
+          url: string | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cod: {
+        Row: {
+          category_id: string | null
+          created_at: string | null
+          description: string | null
+          game_id: string | null
+          id: string | null
+          reviewed: boolean | null
+          submitted_on: string | null
+          title: string | null
+          url: string | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fortnite: {
+        Row: {
+          category_id: string | null
+          created_at: string | null
+          description: string | null
+          game_id: string | null
+          id: string | null
+          reviewed: boolean | null
+          submitted_on: string | null
+          title: string | null
+          url: string | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      overwatch: {
+        Row: {
+          category_id: string | null
+          created_at: string | null
+          description: string | null
+          game_id: string | null
+          id: string | null
+          reviewed: boolean | null
+          submitted_on: string | null
+          title: string | null
+          url: string | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      valorant: {
+        Row: {
+          category_id: string | null
+          created_at: string | null
+          description: string | null
+          game_id: string | null
+          id: string | null
+          reviewed: boolean | null
+          submitted_on: string | null
+          title: string | null
+          url: string | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       [_ in never]: never
