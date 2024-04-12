@@ -11,6 +11,7 @@ const videos = [
     timeSubmitted: '2 hours ago',
     avatar: 'https://ui-avatars.com/api/?name=${username}&background=random',
     views: '1.2K',
+    id: 'adavfdvfdavadv',
   },
   {
     thumbnail: 'https://youtu.be/p96Nt66RWXA',
@@ -20,6 +21,7 @@ const videos = [
     timeSubmitted: '2 hours ago',
     avatar: 'https://ui-avatars.com/api/?name=${username}&background=random',
     views: '1.2K',
+    id: 'adavfdvfdavadv',
   },
   {
     thumbnail: 'https://youtu.be/p96Nt66RWXA',
@@ -29,6 +31,7 @@ const videos = [
     timeSubmitted: '2 hours ago',
     avatar: 'https://ui-avatars.com/api/?name=${username}&background=random',
     views: '1.2K',
+    id: 'adavfdvfdavadv',
   },
 ]
 
@@ -40,13 +43,12 @@ export default async function Videos() {
           return (
             <VideoCard
               thumbnail={sampleVideo.thumbnail}
-              duration={sampleVideo.duration}
               username={sampleVideo.username}
               title={sampleVideo.title}
-              timeSubmitted={sampleVideo.timeSubmitted}
               avatar={sampleVideo.avatar}
-              views={sampleVideo.views}
+              // views={sampleVideo.views}
               key={index}
+              id={sampleVideo.id}
             />
           )
         })}

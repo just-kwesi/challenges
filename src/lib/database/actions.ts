@@ -8,6 +8,7 @@ import { SignupData } from '@/components/ui/auth/signup'
 
 import { Database, Tables, Enums } from '@/lib/database/supabase.types'
 import { QueryResult, QueryData, QueryError } from '@supabase/supabase-js'
+import { off } from 'process'
 
 export type userProfile = {
   full_name: string
@@ -290,11 +291,10 @@ const videoMapping = {
   'ece2105b-a41d-44a8-b5fb-fe28d29abb36': 'cod',
   '1d1570ff-123b-4be5-97da-d1ac04f6723d': 'fortnite',
 }
-export async function getGameVideos(clipsSeen: string[], gameId: string) {
+export async function getGameVideos(offset: number, gameId: string) {
   try {
     const supabase = createClient()
     const videTable = videoMapping[gameId as keyof typeof videoMapping]
-    console.log(videTable)
 
     const videosQuery = supabase
       .from(videTable)
@@ -306,13 +306,14 @@ export async function getGameVideos(clipsSeen: string[], gameId: string) {
     ),
     profiles (
       username,
-      id
+      id,
+      avatar_url
     )
   `
       )
       .eq('game_id', gameId)
-      .not('id', 'in', `(${clipsSeen.join(',')})`)
-      .limit(20)
+      // .not('id', 'in', `(${clipsSeen.join(',')})`)
+      .range(offset, offset + 10)
 
     type videosData = QueryData<typeof videosQuery>
 
