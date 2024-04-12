@@ -8,7 +8,7 @@ export function FullNav() {
   const pathname = usePathname()
 
   return (
-    <div className="mr-4 hidden sm:flex">
+    <div className="mr-4 hidden md:flex">
       <Link href="/" className="mr-10 flex items-center space-x-2">
         <span className="hidden font-normal  sm:inline-block text-muted-foreground">
           @Klipped

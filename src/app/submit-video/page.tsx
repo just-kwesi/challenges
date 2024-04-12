@@ -1,13 +1,9 @@
+import { redirect } from 'next/navigation'
 import { Separator } from '@/components/ui/separator'
 import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
-import {
-  submitVideo,
-  getGamesAndCategories,
-  GameCategories,
-} from '@/lib/database/actions'
+import VideoPlayerContainer from '@/components/ui/video-player/video-container'
 
-import { SubmissionForm } from '@/components/ui/submit-video/video-submission-form'
+import { getGamesAndCategories } from '@/lib/database/actions'
 
 export default async function SubmitVideo() {
   const supabase = createClient()
@@ -15,17 +11,15 @@ export default async function SubmitVideo() {
   if (!userSession) redirect('/login')
 
   const res = await getGamesAndCategories()
+
   return (
-    <div className="space-y-6 p-10">
+    <div className="space-y-6 p-10" suppressHydrationWarning>
       <div>
         <h3 className="text-lg font-medium">Video Submission</h3>
         <p className="text-sm text-muted-foreground">Submit your clip</p>
       </div>
       <Separator />
-      <div className="flex flex-col gap-x-7 sm:flex-row">
-        <p>Video Player</p>
-        <SubmissionForm gamesData={res} />
-      </div>
+      <VideoPlayerContainer res={res} />
     </div>
   )
 }

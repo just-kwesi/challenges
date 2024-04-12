@@ -1,10 +1,9 @@
-import { Separator } from '@/components/ui/separator'
 import { getUserVideos } from '@/lib/database/actions'
 import { DataTable } from '@/components/ui/videos-page/data-table'
 import { toast } from '@/components/ui/use-toast'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { VideoType, columns } from './columns'
+import { columns } from './columns'
 import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
 
 export default async function VideosPage() {

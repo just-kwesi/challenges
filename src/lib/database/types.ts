@@ -36,3 +36,18 @@ export type videoRowData = {
     id: string
   } | null
 }
+
+export interface videosList {
+  id: any
+  title: any
+  description: any
+  url: any
+  categories: {
+    name: string
+  }[]
+  profiles: {
+    username: string | null
+    id: string
+    avatar_url: string | null
+  } | null
+}

@@ -8,6 +8,7 @@ import { SignupData } from '@/components/ui/auth/signup'
 
 import { Database, Tables, Enums } from '@/lib/database/supabase.types'
 import { QueryResult, QueryData, QueryError } from '@supabase/supabase-js'
+import { off } from 'process'
 
 export type userProfile = {
   full_name: string
@@ -204,6 +205,22 @@ export async function getSignedInUserProfile() {
   return data
 }
 
+// *get a user details
+export async function getUserDetails(userId: string) {
+  const supabase = createClient()
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id, full_name, username, avatar_url, bio')
+    .eq('username', userId)
+    .single()
+
+  if (error) {
+    redirect('/error')
+  }
+  return data
+}
+
 // * GET USER VIDEOS
 export async function getUserVideos() {
   try {
@@ -232,7 +249,6 @@ export async function getUserVideos() {
   `
       )
       .eq('user_id', userId)
-      .range(0, 99)
 
     type videosWithData = QueryData<typeof videosWithDataQuery>
     const { data, error } = await videosWithDataQuery
@@ -241,5 +257,158 @@ export async function getUserVideos() {
     return { success: videoData }
   } catch (error) {
     return { error }
+  }
+}
+
+// * Get game details
+// * game title,description,image,id
+export async function getGameDetails() {
+  try {
+    const supabase = createClient()
+
+    const gamesDataQuery = supabase.from('gameimages').select(`image_url,
+        games(id,name,description,slug)`)
+
+    type gamesData = QueryData<typeof gamesDataQuery>
+    const { data, error } = await gamesDataQuery
+    if (error) throw error
+    const games: gamesData = data
+    return { success: games }
+  } catch (error) {
+    return {
+      error: error,
+    }
+  }
+}
+
+// * get a singular game details
+export async function getGameInfo(slug: string) {
+  try {
+    const supabase = createClient()
+    const { data, error } = await supabase
+      .from('games')
+      .select('id,name')
+      .eq('slug', slug)
+    if (error) throw error
+    return { success: data[0] }
+  } catch (error) {
+    return {
+      error: error,
+    }
+  }
+}
+
+//  * Videos list with infinite scrolling
+
+const videoMapping = {
+  '8997b0e9-c765-4226-a676-b4f903a8fe9e': 'apex',
+  '78e04f44-0b45-41a6-8645-3c046f26383f': 'overwatch',
+  'c4549d44-8d8a-45cb-a884-c01ef963a3cd': 'valorant',
+  'ece2105b-a41d-44a8-b5fb-fe28d29abb36': 'cod',
+  '1d1570ff-123b-4be5-97da-d1ac04f6723d': 'fortnite',
+}
+export async function getGameVideos(offset: number, gameId: string) {
+  try {
+    const supabase = createClient()
+    const videTable = videoMapping[gameId as keyof typeof videoMapping]
+
+    const videosQuery = supabase
+      .from(videTable)
+      .select(
+        `
+    id, title, description ,url, 
+    categories (
+      name
+    ),
+    profiles (
+      username,
+      id,
+      avatar_url
+    )
+  `
+      )
+      .eq('game_id', gameId)
+      // .not('id', 'in', `(${clipsSeen.join(',')})`)
+      .range(offset, offset + 10)
+
+    type videosData = QueryData<typeof videosQuery>
+
+    const { data, error } = await videosQuery
+    if (error) throw error
+    const videos: videosData = data
+    return { success: videos }
+  } catch (error) {
+    return {
+      error: error,
+    }
+  }
+}
+
+// * Get video with the videoId
+
+export async function getVideo(id: string) {
+  try {
+    const supabase = createClient()
+    const videoQuery = supabase
+      .from('videos')
+      .select(
+        `
+    id, title, description ,url, 
+    categories (
+      name
+    ),
+    profiles (
+      username,
+      id,
+      avatar_url
+    )
+  `
+      )
+      .eq('id', id)
+      .limit(1)
+    type videoType = QueryData<typeof videoQuery>
+    const { data, error } = await videoQuery
+    // console.log(data)
+    if (error) throw error
+    const video: videoType = data
+    return { success: video }
+  } catch (error) {
+    return {
+      error: error,
+    }
+  }
+}
+
+// * Get video with the videoId
+
+export async function getUserVideosWithId(id: string) {
+  try {
+    const supabase = createClient()
+    const videoQuery = supabase
+      .from('videos')
+      .select(
+        `
+    id, title, description ,url, 
+    categories (
+      name
+    ),
+    profiles (
+      username,
+      id,
+      avatar_url
+    )
+  `
+      )
+      .eq('user_id', id)
+    type videoType = QueryData<typeof videoQuery>
+    const { data, error } = await videoQuery
+    // console.log(data)
+    if (error) throw error
+    const video: videoType = data
+    return { success: video }
+  } catch (error) {
+    return {
+      error: error,
+    }
   }
 }

@@ -1,6 +1,20 @@
-import { cn } from '@/lib/utils'
-import { ChevronRight, HomeIcon } from 'lucide-react'
 import Link from 'next/link'
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  /**
+   * Renders a collapsed breadcrumb component.
+   *
+   * @param {Object} props - The component props.
+   * @param {Breadcrumb[]} props.breadcrumbs - The array of breadcrumb objects.
+   * @returns {JSX.Element} - The rendered collapsed breadcrumb component.
+   */
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
+import React from 'react'
 
 interface Breadcrumb {
   label: string
@@ -8,41 +22,28 @@ interface Breadcrumb {
   active?: boolean
 }
 
-export default function Breadcrumbs({
+export default function BreadcrumbCollapsed({
   breadcrumbs,
 }: {
   breadcrumbs: Breadcrumb[]
 }) {
   return (
-    <nav
+    <Breadcrumb
       aria-label="Breadcrumb"
-      className="mb-3 mt-3 flex items-center flex-wrap pl-8"
+      className="mb-3 mt-3 flex items-center flex-wrap"
     >
-      <ol
-        className={cn('flex scroll-m-20 text-xl font-semibold tracking-tight')}
-      >
+      <BreadcrumbList>
         {breadcrumbs.map((breadcrumb, index) => (
-          <li
-            key={breadcrumb.href}
-            aria-current={breadcrumb.active}
-            className={cn(
-              breadcrumb.active ? 'text-foreground/60' : 'text-foreground',
-              'transition-colors hover:text-foreground/80'
-            )}
-          >
-            <Link href={breadcrumb.href}>
-              {breadcrumb.label == 'Home' ? (
-                <HomeIcon className="h-5 w-5 inline-block" />
-              ) : (
-                breadcrumb.label
-              )}
-            </Link>
-            {index < breadcrumbs.length - 1 ? (
-              <ChevronRight className="h-5 w-5 mx-3 inline-block" />
-            ) : null}
-          </li>
+          <React.Fragment key={breadcrumb.href}>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href={breadcrumb.href}>{breadcrumb.label}</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            {index < breadcrumbs.length - 1 ? <BreadcrumbSeparator /> : null}
+          </React.Fragment>
         ))}
-      </ol>
-    </nav>
+      </BreadcrumbList>
+    </Breadcrumb>
   )
 }

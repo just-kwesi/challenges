@@ -86,7 +86,7 @@ export const columns: ColumnDef<videoRowData>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
-      const state: boolean = row.getValue('status')
+      const state: boolean = row.original.reviewed!
 
       return (
         <div className="flex w-[100px] items-center">

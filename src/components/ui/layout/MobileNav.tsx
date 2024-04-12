@@ -9,6 +9,9 @@ import { Button } from '@/components/ui/button'
 import { usePathname } from 'next/navigation'
 
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { ScrollArea } from '@/components/ui/scroll-area'
+
+import { SidebarDoc } from '@/lib/config/docs'
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false)
@@ -16,7 +19,7 @@ export function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" className="sm:hidden">
+        <Button variant="ghost" className="md:hidden">
           <Menu />
         </Button>
       </SheetTrigger>
@@ -30,65 +33,51 @@ export function MobileNav() {
           <span className="font-bold">kwesi</span>
         </MobileLink>
 
-        <nav className="flex items-start gap-8 text-sm flex-col mt-10 ml-5">
-          <Link
-            href="/"
-            className={cn(
-              'transition-colors hover:text-foreground/80',
-              pathname === '/' ? 'text-foreground' : 'text-foreground/60'
+        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
+          {/* <div className="flex flex-col space-y-3">
+            {docsConfig.mainNav?.map(
+              (item) =>
+                item.href && (
+                  <MobileLink
+                    key={item.href}
+                    href={item.href}
+                    onOpenChange={setOpen}
+                  >
+                    {item.title}
+                  </MobileLink>
+                )
             )}
-            onClick={() => {
-              setOpen?.(false)
-            }}
-          >
-            Home
-          </Link>
-
-          <Link
-            href="/projects"
-            className={cn(
-              'transition-colors hover:text-foreground/80',
-              pathname.startsWith('/projects')
-                ? 'text-foreground'
-                : 'text-foreground/60'
-            )}
-            onClick={() => {
-              setOpen?.(false)
-            }}
-          >
-            Projects
-          </Link>
-
-          <Link
-            href="/work"
-            className={cn(
-              'transition-colors hover:text-foreground/80',
-              pathname.startsWith('/work')
-                ? 'text-foreground'
-                : 'text-foreground/60'
-            )}
-            onClick={() => {
-              setOpen?.(false)
-            }}
-          >
-            Experience
-          </Link>
-
-          <Link
-            href="/contact"
-            className={cn(
-              'transition-colors hover:text-foreground/80',
-              pathname.startsWith('/contact-me')
-                ? 'text-foreground'
-                : 'text-foreground/60'
-            )}
-            onClick={() => {
-              setOpen?.(false)
-            }}
-          >
-            Contact
-          </Link>
-        </nav>
+          </div> */}
+          <div className="flex flex-col space-y-2">
+            {SidebarDoc.map((item, index) => (
+              <div key={index} className="flex flex-col space-y-3 pt-6">
+                <h4 className="font-medium">{item.title}</h4>
+                {item?.items?.length &&
+                  item.items.map((item) => (
+                    <React.Fragment key={item.href}>
+                      {!item.disabled &&
+                        (item.href ? (
+                          <MobileLink
+                            href={item.href}
+                            onOpenChange={setOpen}
+                            className="text-muted-foreground"
+                          >
+                            {item.title}
+                            {item.label && (
+                              <span className="ml-2 rounded-md bg-[#adfa1d] px-1.5 py-0.5 text-xs leading-none text-[#000000] no-underline group-hover:no-underline">
+                                {item.label}
+                              </span>
+                            )}
+                          </MobileLink>
+                        ) : (
+                          item.title
+                        ))}
+                    </React.Fragment>
+                  ))}
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   )
