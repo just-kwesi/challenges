@@ -205,6 +205,22 @@ export async function getSignedInUserProfile() {
   return data
 }
 
+// *get a user details
+export async function getUserDetails(userId: string) {
+  const supabase = createClient()
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id, full_name, username, avatar_url, bio')
+    .eq('username', userId)
+    .single()
+
+  if (error) {
+    redirect('/error')
+  }
+  return data
+}
+
 // * GET USER VIDEOS
 export async function getUserVideos() {
   try {
@@ -321,6 +337,75 @@ export async function getGameVideos(offset: number, gameId: string) {
     if (error) throw error
     const videos: videosData = data
     return { success: videos }
+  } catch (error) {
+    return {
+      error: error,
+    }
+  }
+}
+
+// * Get video with the videoId
+
+export async function getVideo(id: string) {
+  try {
+    const supabase = createClient()
+    const videoQuery = supabase
+      .from('videos')
+      .select(
+        `
+    id, title, description ,url, 
+    categories (
+      name
+    ),
+    profiles (
+      username,
+      id,
+      avatar_url
+    )
+  `
+      )
+      .eq('id', id)
+      .limit(1)
+    type videoType = QueryData<typeof videoQuery>
+    const { data, error } = await videoQuery
+    // console.log(data)
+    if (error) throw error
+    const video: videoType = data
+    return { success: video }
+  } catch (error) {
+    return {
+      error: error,
+    }
+  }
+}
+
+// * Get video with the videoId
+
+export async function getUserVideosWithId(id: string) {
+  try {
+    const supabase = createClient()
+    const videoQuery = supabase
+      .from('videos')
+      .select(
+        `
+    id, title, description ,url, 
+    categories (
+      name
+    ),
+    profiles (
+      username,
+      id,
+      avatar_url
+    )
+  `
+      )
+      .eq('user_id', id)
+    type videoType = QueryData<typeof videoQuery>
+    const { data, error } = await videoQuery
+    // console.log(data)
+    if (error) throw error
+    const video: videoType = data
+    return { success: video }
   } catch (error) {
     return {
       error: error,

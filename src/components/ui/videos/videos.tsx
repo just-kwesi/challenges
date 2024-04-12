@@ -1,57 +1,30 @@
-import Image from 'next/image'
 import { VideoCard } from '@/components/ui/videos/video-card'
+import { getUserVideosWithId } from '@/lib/database/actions'
 
-// Sample video data
-const videos = [
-  {
-    thumbnail: 'https://youtu.be/p96Nt66RWXA',
-    duration: '10:15',
-    username: 'SampleUser',
-    title: 'How to Use Tailwind CSS with React',
-    timeSubmitted: '2 hours ago',
-    avatar: 'https://ui-avatars.com/api/?name=${username}&background=random',
-    views: '1.2K',
-    id: 'adavfdvfdavadv',
-  },
-  {
-    thumbnail: 'https://youtu.be/p96Nt66RWXA',
-    duration: '10:15',
-    username: 'SampleUser',
-    title: 'How to Use Tailwind CSS with React',
-    timeSubmitted: '2 hours ago',
-    avatar: 'https://ui-avatars.com/api/?name=${username}&background=random',
-    views: '1.2K',
-    id: 'adavfdvfdavadv',
-  },
-  {
-    thumbnail: 'https://youtu.be/p96Nt66RWXA',
-    duration: '10:15',
-    username: 'SampleUser',
-    title: 'How to Use Tailwind CSS with React',
-    timeSubmitted: '2 hours ago',
-    avatar: 'https://ui-avatars.com/api/?name=${username}&background=random',
-    views: '1.2K',
-    id: 'adavfdvfdavadv',
-  },
-]
-
-export default async function Videos() {
+export default async function Videos({ userId }: { userId: string }) {
+  const { success, error } = await getUserVideosWithId(userId)
   return (
     <main className="container mx-auto px-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
-        {videos.map((sampleVideo, index) => {
-          return (
-            <VideoCard
-              thumbnail={sampleVideo.thumbnail}
-              username={sampleVideo.username}
-              title={sampleVideo.title}
-              avatar={sampleVideo.avatar}
-              // views={sampleVideo.views}
-              key={index}
-              id={sampleVideo.id}
-            />
-          )
-        })}
+        {success &&
+          success.map((video, index) => {
+            return (
+              <VideoCard
+                thumbnail={video.url}
+                username={video.profiles!.username as string}
+                title={video.title}
+                avatar={
+                  (video.profiles!.avatar_url as string) ||
+                  `https://ui-avatars.com/api/?name=${
+                    video.profiles!.username
+                  }&background=random`
+                }
+                // views={sampleVideo.views}
+                key={index}
+                id={video.id}
+              />
+            )
+          })}
       </div>
     </main>
   )

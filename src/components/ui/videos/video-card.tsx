@@ -3,6 +3,14 @@ import dynamic from 'next/dynamic'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 
 // Define the interface for props
 interface VideoCardProps {
@@ -31,9 +39,9 @@ export function VideoCard({
   id,
 }: VideoCardProps) {
   return (
-    <div className="max-w-[275px] min-h-[300px] rounded overflow-hidden shadow-lg min-w-[250px]">
+    <div className="max-w-[275px] min-h-[300px] rounded overflow-hidden shadow-lg min-w-[250px] border">
       <div className="relative">
-        <Link href={`videos/${id}`} passHref>
+        <Link href={`/videos/${id}`} passHref>
           <VideoPlayerNoSSR url={thumbnail} />
         </Link>
 
@@ -53,9 +61,7 @@ export function VideoCard({
           <p className="text-base text-muted-foreground">{username}</p>
         </div>
 
-        <h4 className="scroll-m-20 text-lg font-normal tracking-tight mt-4 text-balance ">
-          {title}
-        </h4>
+        <p className="leading-7 [&:not(:first-child)]:mt-6">{title}</p>
 
         {/* <div className="flex justify-between items-center text-xs text-muted-foreground mt-6">
           <p>{timeSubmitted}</p>

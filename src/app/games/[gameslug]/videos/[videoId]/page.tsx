@@ -1,5 +1,10 @@
 import dynamic from 'next/dynamic'
+
 import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
+
+import { getVideo } from '@/lib/database/actions'
+
+import { VideoDetails } from '@/components/ui/videos/video-details'
 // Import VideoPlayer dynamically and disable SSR
 const VideoPlayerNoSSR = dynamic(
   () => import('@/components/ui/video-player/video-player'),
@@ -15,7 +20,8 @@ export default async function Page({
 }) {
   const game = params.gameslug
   const videoId = params.videoId
-  console.log(game)
+
+  const { success, error } = await getVideo(videoId)
   return (
     <main>
       <Breadcrumbs
@@ -32,33 +38,25 @@ export default async function Page({
           },
         ]}
       />
-
-      <div className="w-full h-100svh">
-        <VideoPlayerNoSSR url={'https://youtu.be/oDk2syM7ndM'} />
-      </div>
-      <VideoDetails title={'test'} views={'test'} uploadDate={'test'} />
+      {success && (
+        <div>
+          <div className="w-full h-100svh">
+            <VideoPlayerNoSSR url={success[0].url} />
+          </div>
+          <VideoDetails
+            title={success[0].title}
+            description={success[0].description as string}
+            uploadDate={'test'}
+            avatar_url={
+              (success[0].profiles!.avatar_url as string) ||
+              `https://ui-avatars.com/api/?name=${
+                success[0].profiles!.username
+              }&background=random`
+            }
+            username={success[0].profiles!.username as string}
+          />
+        </div>
+      )}
     </main>
-  )
-}
-const VideoDetails = ({
-  title,
-  views,
-  uploadDate,
-}: {
-  title: string
-  views: string
-  uploadDate: string
-}) => {
-  return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold">{title}</h1>
-      <div className="flex justify-between items-center my-2">
-        <span className="text-gray-600">
-          {views} views • {uploadDate}
-        </span>
-        {/* Action buttons here */}
-      </div>
-      {/* Video description and channel details */}
-    </div>
   )
 }

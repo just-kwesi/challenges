@@ -1,11 +1,17 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Videos from '@/components/ui/videos/videos'
 import { Separator } from '@/components/ui/separator'
-import { getSignedInUserProfile } from '@/lib/database/actions'
+import { getUserDetails } from '@/lib/database/actions'
 
-export default async function UserProfile() {
-  const { username, full_name, bio, avatar_url, id } =
-    await getSignedInUserProfile()
+export default async function UserProfile({
+  params,
+}: {
+  params: { username: string }
+}) {
+  const usrname = params.username
+  const { username, full_name, bio, avatar_url, id } = await getUserDetails(
+    usrname
+  )
   const avartarURL =
     avatar_url ||
     `https://ui-avatars.com/api/?name=${username}&background=random`

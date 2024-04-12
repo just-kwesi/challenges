@@ -5,7 +5,13 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
+  /**
+   * Renders a collapsed breadcrumb component.
+   *
+   * @param {Object} props - The component props.
+   * @param {Breadcrumb[]} props.breadcrumbs - The array of breadcrumb objects.
+   * @returns {JSX.Element} - The rendered collapsed breadcrumb component.
+   */
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import React from 'react'
