@@ -39,7 +39,7 @@ export function VideoCard({
   id,
 }: VideoCardProps) {
   return (
-    <div className="max-w-[275px] min-h-[300px] rounded overflow-hidden shadow-lg min-w-[250px] border">
+    <div className="max-w-[275px] min-h-[300px] rounded overflow-hidden shadow-lg min-w-[220px] border">
       <div className="relative">
         <Link href={`/videos/${id}`} passHref>
           <VideoPlayerNoSSR url={thumbnail} />

@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
 import { getVideo } from '@/lib/database/actions'
 import { VideoDetails } from '@/components/ui/videos/video-details'
-
+import { Vote } from '@/components/ui/videos/vote-component'
 const VideoPlayerNoSSR = dynamic(
   () => import('@/components/ui/video-player/video-player'),
   {
@@ -13,18 +13,19 @@ const VideoPlayerNoSSR = dynamic(
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id
   const { success, error } = await getVideo(id)
+  console.log(success)
 
   return (
     <main className="mx-5">
       <Breadcrumbs
         breadcrumbs={[
           { label: 'Home', href: '/' },
-          { label: 'User Videos', href: '/videos' },
-          {
-            label: 'Video',
-            href: `/videos/${id}/`,
-            active: true,
-          },
+          // { label: 'User Videos', href: '/videos' },
+          // {
+          //   label: 'Video',
+          //   href: `/videos/${id}/`,
+          //   active: true,
+          // },
         ]}
       />
       {success && (
@@ -44,6 +45,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             }
             username={success[0].profiles!.username as string}
           />
+          <Vote videoId={id} />
         </div>
       )}
     </main>
