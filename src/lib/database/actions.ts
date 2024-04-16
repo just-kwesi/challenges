@@ -429,7 +429,9 @@ export async function hasVoted(videoId: string) {
       .eq('user_id', userId)
       .eq('video_id', videoId)
       .single()
-
+    if (error?.code == 'PGRST116') {
+      return { voted: false }
+    }
     if (error) throw error
     return data ? { voted: true } : { voted: false }
   } catch (error) {
@@ -449,11 +451,10 @@ export async function vote(videoId: string) {
     }
     const userId = userSession.user.id
     const { data, error } = await supabase
-      .from('voted')
+      .from('votes')
       .insert([{ user_id: userId, video_id: videoId }])
-
     if (error) throw error
-    return { success: data }
+    return { success: true }
   } catch (error) {
     return { error: error }
   }

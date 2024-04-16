@@ -16,7 +16,7 @@ const Page = ({ gameId }: { gameId: string }) => {
     const fetchInitialVideos = async () => {
       const { success, error } = await getGameVideos(0, gameId)
       if (success) {
-        console.log(success)
+        // console.log(success)
         setVideos(success)
       }
     }
@@ -26,7 +26,7 @@ const Page = ({ gameId }: { gameId: string }) => {
   const fetchMoreVideos = async () => {
     const { success, error } = await getGameVideos(offset, gameId)
     if (success) {
-      console.log(success)
+      // console.log(success)
       setVideos((prevVideos) => [...prevVideos, ...success])
       success.length > 0 ? setHasMore(true) : setHasMore(false)
       setOffset((prevOffset) => (prevOffset += 10))

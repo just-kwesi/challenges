@@ -2,9 +2,11 @@ import dynamic from 'next/dynamic'
 
 import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
 
-import { getVideo } from '@/lib/database/actions'
+import { getVideo, hasVoted } from '@/lib/database/actions'
 
 import { VideoDetails } from '@/components/ui/videos/video-details'
+import { Vote } from '@/components/ui/videos/vote-component'
+import { toast } from '@/components/ui/use-toast'
 // Import VideoPlayer dynamically and disable SSR
 const VideoPlayerNoSSR = dynamic(
   () => import('@/components/ui/video-player/video-player'),
@@ -22,6 +24,15 @@ export default async function Page({
   const videoId = params.videoId
 
   const { success, error } = await getVideo(videoId)
+
+  const voted = await hasVoted(videoId)
+  if (error) {
+    toast({
+      variant: 'destructive',
+      title: 'Uh oh! Something went wrong.',
+      description: 'There was a problem with your request.',
+    })
+  }
   return (
     <main>
       <Breadcrumbs
@@ -55,6 +66,7 @@ export default async function Page({
             }
             username={success[0].profiles!.username as string}
           />
+          <Vote voted={voted} videoId={videoId} />
         </div>
       )}
     </main>

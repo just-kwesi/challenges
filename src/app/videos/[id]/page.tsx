@@ -1,8 +1,9 @@
 import dynamic from 'next/dynamic'
 import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
-import { getVideo } from '@/lib/database/actions'
+import { getVideo, hasVoted } from '@/lib/database/actions'
 import { VideoDetails } from '@/components/ui/videos/video-details'
 import { Vote } from '@/components/ui/videos/vote-component'
+import { toast } from '@/components/ui/use-toast'
 const VideoPlayerNoSSR = dynamic(
   () => import('@/components/ui/video-player/video-player'),
   {
@@ -13,19 +14,26 @@ const VideoPlayerNoSSR = dynamic(
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id
   const { success, error } = await getVideo(id)
-  console.log(success)
+  const voted = await hasVoted(id)
+  if (error) {
+    toast({
+      variant: 'destructive',
+      title: 'Uh oh! Something went wrong.',
+      description: 'There was a problem with your request.',
+    })
+  }
 
   return (
     <main className="mx-5">
       <Breadcrumbs
         breadcrumbs={[
           { label: 'Home', href: '/' },
-          // { label: 'User Videos', href: '/videos' },
-          // {
-          //   label: 'Video',
-          //   href: `/videos/${id}/`,
-          //   active: true,
-          // },
+          { label: 'User Videos', href: '/videos' },
+          {
+            label: 'Video',
+            href: `/videos/${id}/`,
+            active: true,
+          },
         ]}
       />
       {success && (
@@ -45,7 +53,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             }
             username={success[0].profiles!.username as string}
           />
-          <Vote videoId={id} />
+          <Vote voted={voted} videoId={id} />
         </div>
       )}
     </main>
