@@ -412,3 +412,50 @@ export async function getUserVideosWithId(id: string) {
     }
   }
 }
+
+// * Voting for a user
+export async function hasVoted(videoId: string) {
+  try {
+    const supabase = createClient()
+    const userSession = (await supabase.auth.getSession()).data.session
+    if (!userSession) {
+      return { loggedIn: false }
+    }
+    const userId = userSession.user.id
+
+    const { data, error } = await supabase
+      .from('votes')
+      .select('id')
+      .eq('user_id', userId)
+      .eq('video_id', videoId)
+      .single()
+    if (error?.code == 'PGRST116') {
+      return { voted: false }
+    }
+    if (error) throw error
+    return data ? { voted: true } : { voted: false }
+  } catch (error) {
+    return { error: error }
+  }
+}
+
+export async function vote(videoId: string) {
+  try {
+    const supabase = createClient()
+    if ((await hasVoted(videoId)).voted) {
+      return { voted: true }
+    }
+    const userSession = (await supabase.auth.getSession()).data.session
+    if (!userSession) {
+      return { loggedIn: false }
+    }
+    const userId = userSession.user.id
+    const { data, error } = await supabase
+      .from('votes')
+      .insert([{ user_id: userId, video_id: videoId }])
+    if (error) throw error
+    return { success: true }
+  } catch (error) {
+    return { error: error }
+  }
+}

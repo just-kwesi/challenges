@@ -38,12 +38,15 @@ export default async function VideosPage() {
     <div>
       {data && (
         <>
-          <Breadcrumbs
-            breadcrumbs={[
-              { label: 'Home', href: '/' },
-              { label: 'User Videos', href: '/videos', active: true },
-            ]}
-          />
+          <div className="ml-8">
+            <Breadcrumbs
+              breadcrumbs={[
+                { label: 'Home', href: '/' },
+                { label: 'User Videos', href: '/videos', active: true },
+              ]}
+            />
+          </div>
+
           <div className="h-full flex-1 flex-col space-y-4 px-8 flex">
             <div className="flex items-center justify-between space-y-2">
               <div>
