@@ -36,7 +36,11 @@ export function LoginForm({}) {
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const res = await login(data)
+    const { error } = await login(data)
+    toast({
+      title: 'Uh oh! Something went wrong.',
+      description: 'Invalid login credentials',
+    })
   }
 
   return (
