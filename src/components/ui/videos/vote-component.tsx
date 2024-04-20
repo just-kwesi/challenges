@@ -33,9 +33,7 @@ export const Vote = ({ voted, videoId }: { voted: any; videoId: string }) => {
   if (voted.loggedIn == false) {
     return (
       <Button asChild>
-        <Link href="/login">
-          <a target="_blank">Vote</a>
-        </Link>
+        <Link href="/login">Vote</Link>
       </Button>
     )
   }

@@ -51,7 +51,7 @@ export default async function Page({
       />
       {success && (
         <div>
-          <div className="w-full h-100svh">
+          <div className="w-full h-100svh min-h-80">
             <VideoPlayerNoSSR url={success[0].url} />
           </div>
           <VideoDetails

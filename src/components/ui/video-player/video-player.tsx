@@ -32,10 +32,10 @@ const VideoPlayer = ({ url }: { url: string }) => {
       </div>
     )
   return (
-    <div className="relative w-full h-full ">
+    <div className="relative w-auto h-auto min-h-80">
       <ReactPlayer
         url={url}
-        className="react-player"
+        className="react-player absolute"
         width="100%"
         height="100%"
         controls={true} // This enables the native controls for YouTube, Vimeo,
