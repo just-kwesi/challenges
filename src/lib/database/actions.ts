@@ -17,17 +17,26 @@ export type userProfile = {
 
 // * LOGIN
 export async function login(data: FormData) {
-  const supabase = createClient()
-  const { error } = await supabase.auth.signInWithPassword(data)
+  try {
+    const supabase = createClient()
+    const { error } = await supabase.auth.signInWithPassword(data)
 
-  if (error) {
+    if (error) {
+      throw error
+    }
+
+    revalidatePath('/', 'layout')
+    redirect('/')
+  } catch (error: any) {
+    // console.log(error)
     return {
-      error: { error: error.name, message: error.message },
+      error: {
+        error: error.name,
+        message: error.message,
+        status: error.status,
+      },
     }
   }
-
-  revalidatePath('/', 'layout')
-  redirect('/')
 }
 
 // * SIGNUP
