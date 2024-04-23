@@ -468,3 +468,39 @@ export async function vote(videoId: string) {
     return { error: error }
   }
 }
+
+const chartMapping = {
+  fortnite: 'fortnite',
+  'overwatch-2': 'overwatch',
+  'apex-legends': 'apex',
+  valorant: 'valorant',
+  'call-of-duty': 'cod',
+}
+// * GET RANKING VIDEO
+export async function getVideoChart(game: string, period: string) {
+  try {
+    const supabase = createClient()
+
+    const table = `${
+      chartMapping[game as keyof typeof chartMapping]
+    }_${period}_leaderboard`
+    console.log(table)
+
+    let chartVideosQuery = supabase
+      .from(table)
+      .select(
+        `name,username,vote_count,title,id,video_category
+  `
+      )
+      .limit(100)
+
+    type chartVideos = QueryData<typeof chartVideosQuery>
+    const { data, error } = await chartVideosQuery
+    console.log(data)
+    if (error) throw error
+    const chartsVideos: chartVideos = data
+    return { success: chartsVideos }
+  } catch (error) {
+    return { error }
+  }
+}

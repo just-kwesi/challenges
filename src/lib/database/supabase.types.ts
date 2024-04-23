@@ -854,6 +854,7 @@ export type Database = {
       }
       apex_alltime_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -864,6 +865,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -872,6 +874,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -885,6 +894,7 @@ export type Database = {
       }
       apex_daily_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -895,6 +905,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -903,6 +914,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -916,6 +934,7 @@ export type Database = {
       }
       apex_monthly_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -926,6 +945,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -934,6 +954,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -947,6 +974,7 @@ export type Database = {
       }
       apex_weekly_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -957,6 +985,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -965,6 +994,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -1155,6 +1191,7 @@ export type Database = {
       }
       cod_alltime_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -1165,6 +1202,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -1173,6 +1211,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -1186,6 +1231,7 @@ export type Database = {
       }
       cod_daily_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -1196,6 +1242,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -1204,6 +1251,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -1217,6 +1271,7 @@ export type Database = {
       }
       cod_monthly_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -1227,6 +1282,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -1235,6 +1291,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -1248,6 +1311,7 @@ export type Database = {
       }
       cod_weekly_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -1258,6 +1322,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -1266,6 +1331,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -1456,6 +1528,7 @@ export type Database = {
       }
       fortnite_alltime_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -1466,6 +1539,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -1474,6 +1548,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -1487,6 +1568,7 @@ export type Database = {
       }
       fortnite_daily_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -1497,6 +1579,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -1505,6 +1588,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -1518,6 +1608,7 @@ export type Database = {
       }
       fortnite_monthly_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -1528,6 +1619,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -1536,6 +1628,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -1549,6 +1648,7 @@ export type Database = {
       }
       fortnite_weekly_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -1559,6 +1659,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -1567,6 +1668,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -1757,6 +1865,7 @@ export type Database = {
       }
       overwatch_alltime_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -1767,6 +1876,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -1775,6 +1885,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -1788,6 +1905,7 @@ export type Database = {
       }
       overwatch_daily_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -1798,6 +1916,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -1806,6 +1925,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -1819,6 +1945,7 @@ export type Database = {
       }
       overwatch_monthly_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -1829,6 +1956,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -1837,6 +1965,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -1850,6 +1985,7 @@ export type Database = {
       }
       overwatch_weekly_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -1860,6 +1996,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -1868,6 +2005,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -2058,6 +2202,7 @@ export type Database = {
       }
       valorant_alltime_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -2068,6 +2213,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -2076,6 +2222,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -2089,6 +2242,7 @@ export type Database = {
       }
       valorant_daily_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -2099,6 +2253,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -2107,6 +2262,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -2120,6 +2282,7 @@ export type Database = {
       }
       valorant_monthly_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -2130,6 +2293,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -2138,6 +2302,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -2151,6 +2322,7 @@ export type Database = {
       }
       valorant_weekly_leaderboard: {
         Row: {
+          category_id: string | null
           description: string | null
           game_description: string | null
           game_id: string | null
@@ -2161,6 +2333,7 @@ export type Database = {
           url: string | null
           user_id: string | null
           username: string | null
+          video_category: string | null
           vote_count: number | null
         }
         Relationships: [
@@ -2169,6 +2342,13 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {

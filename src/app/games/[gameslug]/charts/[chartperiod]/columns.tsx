@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ColumnDef } from '@tanstack/react-table'
 
-import { videoRowData } from '@/lib/database/types'
+import { chartRowData } from '@/lib/database/types'
 import { FileCheckIcon, HourglassIcon } from 'lucide-react'
 
 import { MoreHorizontal } from 'lucide-react'
@@ -30,14 +30,14 @@ export type VideoType = {
   category: string
 }
 
-export const columns: ColumnDef<videoRowData>[] = [
+export const columns: ColumnDef<chartRowData>[] = [
   {
     accessorKey: 'rank',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Rank" />
     ),
     cell: ({ row }) => {
-      const gameLabel = row.original.games?.name
+      const gameLabel = row.original.id
       return (
         <div className="flex">
           {gameLabel && <Badge variant="outline">{gameLabel}</Badge>}
@@ -51,16 +51,14 @@ export const columns: ColumnDef<videoRowData>[] = [
       <DataTableColumnHeader column={column} title="Video" />
     ),
     cell: ({ row }) => {
-      const videoId = row.original.id
+      const videoId = row.original.name
 
       return (
         <Link
           href={`/videos/${videoId}`}
           className={cn('transition-colors hover:text-foreground/80')}
         >
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue('title')}
-          </span>
+          <span className="max-w-[500px] truncate font-medium">{videoId}</span>
         </Link>
       )
     },
@@ -71,7 +69,7 @@ export const columns: ColumnDef<videoRowData>[] = [
       <DataTableColumnHeader column={column} title="Category" />
     ),
     cell: ({ row }) => {
-      const category = row.original.categories?.name
+      const category = row.original.video_category
       return (
         <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-normal">
           {category}

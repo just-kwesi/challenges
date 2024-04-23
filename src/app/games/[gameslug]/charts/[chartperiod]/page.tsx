@@ -2,10 +2,8 @@ import dynamic from 'next/dynamic'
 
 import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
 
-import { getVideo, hasVoted } from '@/lib/database/actions'
+import { getVideoChart } from '@/lib/database/actions'
 
-import { VideoDetails } from '@/components/ui/videos/video-details'
-import { Vote } from '@/components/ui/videos/vote-component'
 import { toast } from '@/components/ui/use-toast'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -27,24 +25,15 @@ export default async function Page({
 }) {
   const game = params.gameslug
   const chartperiod = params.chartperiod
-  const success = [
-    {
-      game: 'Apex',
-      title: 'APEX LEGENDS',
-      category: 'BEST VIDEO',
-      status: true,
-    },
-  ]
-  //   const { success, error } = await getVideo(videoId)
+  const { error, success } = await getVideoChart(game, chartperiod)
 
-  // //   const voted = await hasVoted(videoId)
-  //   if (error) {
-  //     toast({
-  //       variant: 'destructive',
-  //       title: 'Uh oh! Something went wrong.',
-  //       description: 'There was a problem with your request.',
-  //     })
-  //   }
+  if (error) {
+    toast({
+      variant: 'destructive',
+      title: 'Uh oh! Something went wrong.',
+      description: 'There was a problem with your request.',
+    })
+  }
 
   return (
     <main>
@@ -67,20 +56,20 @@ export default async function Page({
       </h3>
       <div className="flex justify-start gap-2">
         <Button variant="link" asChild className="-px-4">
-          <Link href={`charts/daily`}>Daily</Link>
+          <Link href={`daily`}>Daily</Link>
         </Button>
         <Button variant="link" asChild>
-          <Link href={`charts/weekly`}>Weekly</Link>
+          <Link href={`weekly`}>Weekly</Link>
         </Button>
         <Button variant="link" asChild>
-          <Link href={`charts/monthly`}>Monthly</Link>
+          <Link href={`monthly`}>Monthly</Link>
         </Button>
         <Button variant="link" asChild>
-          <Link href={`charts/alltime`}>All Time</Link>
+          <Link href={`alltime`}>All Time</Link>
         </Button>
       </div>
       <Separator />
-      <DataTable columns={columns} data={success!} />
+      {success && <DataTable columns={columns} data={success!} />}
     </main>
   )
 }
