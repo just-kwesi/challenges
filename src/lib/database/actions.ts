@@ -484,7 +484,7 @@ export async function getVideoChart(game: string, period: string) {
     const table = `${
       chartMapping[game as keyof typeof chartMapping]
     }_${period}_leaderboard`
-    console.log(table)
+    // console.log(table)
 
     let chartVideosQuery = supabase
       .from(table)
@@ -496,7 +496,6 @@ export async function getVideoChart(game: string, period: string) {
 
     type chartVideos = QueryData<typeof chartVideosQuery>
     const { data, error } = await chartVideosQuery
-    console.log(data)
     if (error) throw error
     const chartsVideos: chartVideos = data
     return { success: chartsVideos }

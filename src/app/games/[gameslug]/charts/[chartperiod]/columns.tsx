@@ -4,8 +4,6 @@ import Link from 'next/link'
 import { ColumnDef } from '@tanstack/react-table'
 
 import { chartRowData } from '@/lib/database/types'
-import { FileCheckIcon, HourglassIcon } from 'lucide-react'
-
 import { MoreHorizontal } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -36,17 +34,14 @@ export const columns: ColumnDef<chartRowData>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Rank" />
     ),
-    cell: ({ row }) => {
-      const gameLabel = row.original.id
-      return (
-        <div className="flex">
-          {gameLabel && <Badge variant="outline">{gameLabel}</Badge>}
-        </div>
-      )
+    cell: ({ row, getValue }) => {
+      const videoRank = getValue()
+      return <div className="flex">{videoRank as string}</div>
     },
   },
   {
-    accessorKey: 'video',
+    id: 'title',
+    accessorKey: 'title',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Video" />
     ),
@@ -58,23 +53,31 @@ export const columns: ColumnDef<chartRowData>[] = [
           href={`/videos/${videoId}`}
           className={cn('transition-colors hover:text-foreground/80')}
         >
-          <span className="max-w-[500px] truncate font-medium">{videoId}</span>
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue('title')}
+          </span>
         </Link>
       )
     },
   },
   {
-    accessorKey: 'category',
+    accessorKey: 'video_category',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Category" />
     ),
     cell: ({ row }) => {
       const category = row.original.video_category
+      // console.log(row.original)
       return (
         <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-normal">
-          {category}
+          {row.getValue('video_category')}
         </code>
       )
+    },
+    filterFn: (row, id, value) => {
+      // console.log('category', row.getValue(category))
+      console.log('filter function')
+      return value.includes(row.getValue(id))
     },
   },
   {

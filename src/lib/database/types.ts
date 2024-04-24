@@ -38,12 +38,12 @@ export type videoRowData = {
 }
 
 export type chartRowData = {
-  name: any
-  username: any
-  vote_count: any
-  title: any
-  id: any
-  video_category: any
+  name: string
+  username: string
+  vote_count: Number
+  title: string
+  id: string
+  video_category: string
 }
 
 export interface videosList {

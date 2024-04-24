@@ -25,7 +25,18 @@ export default async function Page({
 }) {
   const game = params.gameslug
   const chartperiod = params.chartperiod
-  const { error, success } = await getVideoChart(game, chartperiod)
+  let { error, success } = await getVideoChart(game, chartperiod)
+  if (success) {
+    success = success.map((video, index) => {
+      if (index % 2 == 0) {
+        video.video_category = 'Clutch Moment'
+      }
+      return {
+        ...video,
+        rank: index + 1,
+      }
+    })
+  }
 
   if (error) {
     toast({
