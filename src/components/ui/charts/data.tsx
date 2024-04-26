@@ -1,7 +1,10 @@
+import { FileQuestionIcon } from 'lucide-react'
+
 export const categories = [
   {
     value: 'Best Play',
     label: 'Best Play',
+    // icon: FileQuestionIcon,
   },
 
   {

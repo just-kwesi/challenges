@@ -34,6 +34,7 @@ export default async function Page({
       return {
         ...video,
         rank: index + 1,
+        category: video.video_category,
       }
     })
   }

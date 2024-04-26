@@ -8,6 +8,7 @@ import { MoreHorizontal } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { categories } from '@/components/ui/charts/data'
 
 import {
   DropdownMenu,
@@ -61,22 +62,27 @@ export const columns: ColumnDef<chartRowData>[] = [
     },
   },
   {
-    accessorKey: 'video_category',
+    id: 'category',
+    accessorKey: 'category',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Category" />
     ),
     cell: ({ row }) => {
-      const category = row.original.video_category
-      // console.log(row.original)
+      const videoCatetegory = categories.find(
+        (category) => category.value === row.getValue('category')
+      )
+
+      if (!videoCatetegory) {
+        return null
+      }
+      // console.log(row.getValue('category'))
       return (
         <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-normal">
-          {row.getValue('video_category')}
+          {videoCatetegory.label}
         </code>
       )
     },
     filterFn: (row, id, value) => {
-      // console.log('category', row.getValue(category))
-      console.log('filter function')
       return value.includes(row.getValue(id))
     },
   },

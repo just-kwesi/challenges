@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { CheckIcon, PlusCircleIcon } from 'lucide-react'
+import { CheckIcon, CloudOff, PlusCircleIcon } from 'lucide-react'
 import { Column } from '@tanstack/react-table'
 
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Command,
   CommandEmpty,
@@ -38,9 +38,7 @@ export function DataTableFacetedFilter<TData, TValue>({
   options,
 }: DataTableFacetedFilterProps<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues()
-  // console.log(facets)
   const selectedValues = new Set(column?.getFilterValue() as string[])
-  // console.log(selectedValues)
 
   return (
     <Popover>
@@ -91,6 +89,8 @@ export function DataTableFacetedFilter<TData, TValue>({
             <CommandGroup>
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value)
+                const filterValues: string[] = []
+
                 return (
                   <CommandItem
                     key={option.value}

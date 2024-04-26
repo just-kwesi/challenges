@@ -1,8 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Button } from '@/components/ui/button'
-import { XIcon } from 'lucide-react'
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -27,12 +26,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-import { Input } from '@/components/ui/input'
 import { DataTablePagination } from '@/components/ui/videos-page/data-table-pagination'
-import { DataTableViewOptions } from '@/components/ui/videos-page/data-table-column-toggle'
-import { DataTableFacetedFilter } from './charts-table-faceted-filter'
-
-import { categories } from './data'
+import { DataTableToolbar } from './charts-table-toolbar'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -72,41 +67,10 @@ export function DataTable<TData, TValue>({
       columnFilters,
     },
   })
-  const isFiltered = table.getState().columnFilters.length > 0
+
   return (
     <>
-      <div className="flex items-center py-3">
-        <Input
-          placeholder="Filter Videos..."
-          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('title')?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-
-        <DataTableViewOptions table={table} />
-      </div>
-      <div className="flex items-center pb-3">
-        {table.getColumn('video_category') && (
-          <DataTableFacetedFilter
-            column={table.getColumn('video_category')}
-            title="Category"
-            options={categories}
-          />
-        )}
-
-        {isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
-            Reset
-            <XIcon className="ml-2 h-4 w-4" />
-          </Button>
-        )}
-      </div>
+      <DataTableToolbar table={table} />
 
       <div className="rounded-md border">
         <Table>
