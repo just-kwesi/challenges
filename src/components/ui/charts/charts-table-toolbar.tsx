@@ -31,16 +31,6 @@ export function DataTableToolbar<TData>({
           }
           className="max-w-sm"
         />
-        <Input
-          placeholder="Filter Videos..."
-          value={
-            (table.getColumn('category')?.getFilterValue() as string) ?? ''
-          }
-          onChange={(event) =>
-            table.getColumn('category')?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
 
         <DataTableViewOptions table={table} />
       </div>
