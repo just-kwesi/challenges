@@ -25,9 +25,9 @@ export function DataTableToolbar<TData>({
       <div className="flex items-center py-3">
         <Input
           placeholder="Filter Videos..."
-          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
+          value={(table.getColumn('video')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
-            table.getColumn('title')?.setFilterValue(event.target.value)
+            table.getColumn('video')?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

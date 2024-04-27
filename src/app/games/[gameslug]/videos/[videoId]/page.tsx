@@ -57,7 +57,6 @@ export default async function Page({
           <VideoDetails
             title={success[0].title}
             description={success[0].description as string}
-            uploadDate={'test'}
             avatar_url={
               (success[0].profiles!.avatar_url as string) ||
               `https://ui-avatars.com/api/?name=${
@@ -65,6 +64,7 @@ export default async function Page({
               }&background=random`
             }
             username={success[0].profiles!.username as string}
+            category={success[0].categories?.name as string}
           />
           <Vote voted={voted} videoId={videoId} />
         </div>

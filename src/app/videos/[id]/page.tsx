@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import { useSearchParams } from 'next/navigation'
 import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
 import { getVideo, hasVoted } from '@/lib/database/actions'
 import { VideoDetails } from '@/components/ui/videos/video-details'
@@ -11,8 +12,15 @@ const VideoPlayerNoSSR = dynamic(
   }
 )
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: { id: string }
+  searchParams?: { [key: string]: string | string[] | undefined }
+}) {
   const id = params.id
+  // console.log(searchParams)
   const { success, error } = await getVideo(id)
   const voted = await hasVoted(id)
   if (error) {
@@ -25,17 +33,32 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <main className="mx-5">
-      <Breadcrumbs
-        breadcrumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'User Videos', href: '/videos' },
-          {
-            label: 'Video',
-            href: `/videos/${id}/`,
-            active: true,
-          },
-        ]}
-      />
+      {(searchParams?.charts && (
+        <Breadcrumbs
+          breadcrumbs={[
+            { label: 'Home', href: '/' },
+            // { label: 'Charts', href: `` },
+            {
+              label: 'Video',
+              href: `/videos/${id}/`,
+              active: true,
+            },
+          ]}
+        />
+      )) || (
+        <Breadcrumbs
+          breadcrumbs={[
+            { label: 'Home', href: '/' },
+            { label: 'User Videos', href: '/videos' },
+            {
+              label: 'Video',
+              href: `/videos/${id}/`,
+              active: true,
+            },
+          ]}
+        />
+      )}
+
       {success && (
         <div>
           <div className="w-full h-100svh">
@@ -44,7 +67,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <VideoDetails
             title={success[0].title}
             description={success[0].description as string}
-            uploadDate={'test'}
+            category={success[0].categories?.name as string}
             avatar_url={
               (success[0].profiles!.avatar_url as string) ||
               `https://ui-avatars.com/api/?name=${

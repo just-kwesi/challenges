@@ -1,15 +1,17 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { Badge } from '@/components/ui/badge'
+
 export const VideoDetails = ({
   title,
   description,
-  uploadDate,
+  category,
   username,
   avatar_url,
 }: {
   title: string
   description: string
-  uploadDate: string
+  category: string
   username: string
   avatar_url: string
 }) => {
@@ -30,7 +32,8 @@ export const VideoDetails = ({
           <p className="text-base text-muted-foreground">{username}</p>
         </Link>
       </div>
-      <h1 className="text-xl font-bold">{title}</h1>
+      <h1 className="text-lg font-bold">{title} </h1>
+      <Badge>{category}</Badge>
       <div className="flex justify-between items-center my-2">
         <span className="text-gray-600">{description}</span>
         {/* Action buttons here */}

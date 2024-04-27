@@ -3,11 +3,15 @@
 import Link from 'next/link'
 import { ColumnDef } from '@tanstack/react-table'
 
+// @ts-ignore
+import tc from 'thousands-counter'
+
 import { chartRowData } from '@/lib/database/types'
 import { MoreHorizontal } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+
 import { categories } from '@/components/ui/charts/data'
 
 import {
@@ -37,27 +41,46 @@ export const columns: ColumnDef<chartRowData>[] = [
     ),
     cell: ({ row, getValue }) => {
       const videoRank = getValue()
-      return <div className="flex">{videoRank as string}</div>
+      return <p className="font-semibold">{videoRank as string}</p>
     },
   },
   {
-    id: 'title',
+    id: 'video',
     accessorKey: 'title',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Video" />
     ),
     cell: ({ row }) => {
-      const videoId = row.original.name
+      const videoId = row.original.id
+      console.log(row.original)
+      const username = row.original.username
 
       return (
-        <Link
-          href={`/videos/${videoId}`}
-          className={cn('transition-colors hover:text-foreground/80')}
-        >
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue('title')}
-          </span>
-        </Link>
+        <div className="">
+          <Link
+            href={`/videos/${videoId}?charts=true`}
+            className={cn('transition-colors hover:text-foreground/80')}
+          >
+            <span className="max-w-[200px] truncate font-medium inline-block">
+              {row.getValue('video')}
+            </span>
+          </Link>
+
+          <Link
+            href={`/user/${username}?charts=true`}
+            className={cn('transition-colors hover:text-foreground/80')}
+          >
+            <p className="text-sm text-muted-foreground">{username}</p>
+          </Link>
+        </div>
+        // <Link
+        //   href={`/videos/${row.original.id}`}
+        //   className={cn('transition-colors hover:text-foreground/80')}
+        // >
+        //   <span className="max-w-[500px] truncate font-medium">
+        //     {row.getValue('video')}
+        //   </span>
+        // </Link>
       )
     },
   },
@@ -84,6 +107,20 @@ export const columns: ColumnDef<chartRowData>[] = [
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
+    },
+  },
+  {
+    id: 'votes',
+    accessorKey: 'vote_count',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Votes" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <p className="leading-7 [&:not(:first-child)]:mt-6 text-center">
+          {tc(row.getValue('votes'), 2)}
+        </p>
+      )
     },
   },
   {
