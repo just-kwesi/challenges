@@ -7,7 +7,12 @@ import { FormData } from '@/components/ui/auth/login'
 import { SignupData } from '@/components/ui/auth/signup'
 
 import { Database, Tables, Enums } from '@/lib/database/supabase.types'
-import { QueryResult, QueryData, QueryError } from '@supabase/supabase-js'
+import {
+  QueryResult,
+  QueryData,
+  QueryError,
+  AuthError,
+} from '@supabase/supabase-js'
 import { off } from 'process'
 
 export type userProfile = {
@@ -63,6 +68,42 @@ export async function signup(data: SignupData) {
 
   revalidatePath('/', 'layout')
   redirect('/')
+}
+
+// * Reset password
+export async function resetPasswordServer(email: string, urlBase: string) {
+  try {
+    const supabase = createClient()
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: urlBase,
+    })
+    // console.log(error)
+    if (error) throw error
+
+    return {
+      success: true,
+    }
+  } catch (error) {
+    let message
+    if (error instanceof Error) message = error.message
+    return { error: message }
+  }
+}
+
+// * Update Passsword
+export async function updatePassword(password: string) {
+  try {
+    const supabase = createClient()
+    const { data, error } = await supabase.auth.updateUser({
+      password,
+    })
+    if (error) throw error
+    return { success: true }
+  } catch (error) {
+    let message
+    if (error instanceof Error) message = error.message
+    return { error: message }
+  }
 }
 
 // * USERDATA
