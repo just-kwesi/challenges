@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { submitVideo, GameCategories } from '@/lib/database/actions'
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 
@@ -27,6 +27,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 
 const videoFormSchema = z.object({
   game: z.string({
@@ -248,7 +257,22 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
                 />
               </FormControl>
               <div className="space-y-1 leading-none">
-                <FormLabel>Accept terms and conditions</FormLabel>
+                {/* <FormLabel>Accept terms and conditions</FormLabel> */}
+                <FormLabel>
+                  <Dialog>
+                    <DialogTrigger>Accept terms and conditions</DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Are you absolutely sure?</DialogTitle>
+                        <DialogDescription>
+                          This action cannot be undone. This will permanently
+                          delete your account and remove your data from our
+                          servers.
+                        </DialogDescription>
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog>
+                </FormLabel>
               </div>
             </FormItem>
           )}
