@@ -7,7 +7,12 @@ import { FormData } from '@/components/ui/auth/login'
 import { SignupData } from '@/components/ui/auth/signup'
 
 import { Database, Tables, Enums } from '@/lib/database/supabase.types'
-import { QueryResult, QueryData, QueryError } from '@supabase/supabase-js'
+import {
+  QueryResult,
+  QueryData,
+  QueryError,
+  AuthError,
+} from '@supabase/supabase-js'
 import { off } from 'process'
 
 export type userProfile = {
@@ -63,6 +68,42 @@ export async function signup(data: SignupData) {
 
   revalidatePath('/', 'layout')
   redirect('/')
+}
+
+// * Reset password
+export async function resetPasswordServer(email: string, urlBase: string) {
+  try {
+    const supabase = createClient()
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: urlBase,
+    })
+    // console.log(error)
+    if (error) throw error
+
+    return {
+      success: true,
+    }
+  } catch (error) {
+    let message
+    if (error instanceof Error) message = error.message
+    return { error: message }
+  }
+}
+
+// * Update Passsword
+export async function updatePassword(password: string) {
+  try {
+    const supabase = createClient()
+    const { data, error } = await supabase.auth.updateUser({
+      password,
+    })
+    if (error) throw error
+    return { success: true }
+  } catch (error) {
+    let message
+    if (error instanceof Error) message = error.message
+    return { error: message }
+  }
 }
 
 // * USERDATA
@@ -466,5 +507,40 @@ export async function vote(videoId: string) {
     return { success: true }
   } catch (error) {
     return { error: error }
+  }
+}
+
+const chartMapping = {
+  fortnite: 'fortnite',
+  'overwatch-2': 'overwatch',
+  'apex-legends': 'apex',
+  valorant: 'valorant',
+  'call-of-duty': 'cod',
+}
+// * GET RANKING VIDEO
+export async function getVideoChart(game: string, period: string) {
+  try {
+    const supabase = createClient()
+
+    const table = `${
+      chartMapping[game as keyof typeof chartMapping]
+    }_${period}_leaderboard`
+    // console.log(table)
+
+    let chartVideosQuery = supabase
+      .from(table)
+      .select(
+        `name,username,vote_count,title,id,video_category
+  `
+      )
+      .limit(100)
+
+    type chartVideos = QueryData<typeof chartVideosQuery>
+    const { data, error } = await chartVideosQuery
+    if (error) throw error
+    const chartsVideos: chartVideos = data
+    return { success: chartsVideos }
+  } catch (error) {
+    return { error }
   }
 }

@@ -11,7 +11,7 @@ export const SidebarDoc: SidebarNavItem[] = [
       },
       {
         title: 'Charts',
-        href: '/games/apex-legends/charts',
+        href: '/games/apex-legends/charts/daily',
         items: [],
       },
     ],
@@ -26,7 +26,7 @@ export const SidebarDoc: SidebarNavItem[] = [
       },
       {
         title: 'Charts',
-        href: '/games/call-of-duty/charts',
+        href: '/games/call-of-duty/charts/daily',
         items: [],
       },
     ],
@@ -41,7 +41,7 @@ export const SidebarDoc: SidebarNavItem[] = [
       },
       {
         title: 'Charts',
-        href: '/games/fortnite/charts',
+        href: '/games/fortnite/charts/daily',
         items: [],
       },
     ],
@@ -56,7 +56,7 @@ export const SidebarDoc: SidebarNavItem[] = [
       },
       {
         title: 'Charts',
-        href: '/games/overwatch-2/charts',
+        href: '/games/overwatch-2/charts/daily',
         items: [],
       },
     ],
@@ -71,7 +71,7 @@ export const SidebarDoc: SidebarNavItem[] = [
       },
       {
         title: 'Charts',
-        href: '/games/valorant/charts',
+        href: '/games/valorant/charts/daily',
         items: [],
       },
     ],

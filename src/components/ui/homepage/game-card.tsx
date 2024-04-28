@@ -31,7 +31,7 @@ export const GameCard = ({ imageUrl, description, title, href }: cardProps) => {
           <Link href={`/games/${href}/videos`}>Videos</Link>
         </Button>
         <Button asChild variant="outline">
-          <Link href={`/games/${href}/charts`}>Charts</Link>
+          <Link href={`/games/${href}/charts/daily`}>Charts</Link>
         </Button>
       </div>
     </div>

@@ -37,6 +37,15 @@ export type videoRowData = {
   } | null
 }
 
+export type chartRowData = {
+  name: string
+  username: string
+  vote_count: Number
+  title: string
+  id: string
+  video_category: string
+}
+
 export interface videosList {
   id: any
   title: any
