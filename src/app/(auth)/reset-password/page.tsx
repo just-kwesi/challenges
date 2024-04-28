@@ -17,7 +17,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
 
-export const FormSchema = z
+const FormSchema = z
   .object({
     password: z
       .string()
