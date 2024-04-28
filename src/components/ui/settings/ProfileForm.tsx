@@ -34,6 +34,21 @@ const userProfileSchema = z.object({
         message: 'Invalid username format.',
       }
     ),
+  twitch_url: z
+    .string()
+    .url({ message: 'Please enter a valid twitch URL.' })
+    .optional()
+    .or(z.literal('')),
+  x_url: z
+    .string()
+    .url({ message: 'Please enter a valid X URL.' })
+    .optional()
+    .or(z.literal('')),
+  youtube_url: z
+    .string()
+    .url({ message: 'Please enter a valid Youtube URL.' })
+    .optional()
+    .or(z.literal('')),
 })
 
 export type ProfileFormValues = z.infer<typeof userProfileSchema>
@@ -44,9 +59,12 @@ export default function Profile({
   userData: Tables<'profiles'>
 }) {
   const defaultValues: Partial<ProfileFormValues> = {
-    bio: userData.bio || 'Example: Top 500 in Overwatch and Apex Pred.',
+    bio: userData.bio || '',
     username: userData.username || '',
     full_name: userData.full_name || '',
+    twitch_url: userData.twitch_url || '',
+    x_url: userData.x_url || '',
+    youtube_url: userData.youtube_url || '',
   }
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(userProfileSchema),
@@ -55,16 +73,29 @@ export default function Profile({
   })
 
   async function onSubmit(data: ProfileFormValues) {
-    const { full_name, bio } = data
-    await updateUserprofile({ full_name, bio })
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <p className="text-white">Your Account details has been updated</p>
-        </pre>
-      ),
+    const { full_name, bio, twitch_url, x_url, youtube_url } = data
+    const error = await updateUserprofile({
+      full_name,
+      bio,
+      twitch_url,
+      x_url,
+      youtube_url,
     })
+    if (error) {
+      toast({
+        title: 'Uh oh! Something went wrong.',
+        description: 'Invalid login credentials',
+      })
+    } else {
+      toast({
+        title: 'You changes have been submitted...',
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <p className="text-white">Your Account details has been updated</p>
+          </pre>
+        ),
+      })
+    }
   }
 
   return (
@@ -129,6 +160,58 @@ export default function Profile({
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="twitch_url"
+          render={({ field }) => (
+            <FormItem>
+              <p className="text-base font-medium mb-2 text-muted-foreground">
+                Social Media URLs
+              </p>
+              <FormLabel>Twitch</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder={userData.twitch_url || 'twitch url'}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="x_url"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>X</FormLabel>
+              <FormControl>
+                <Input placeholder={userData.x_url || 'X url'} {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="youtube_url"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Youtube</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder={userData.youtube_url || 'youtube url'}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <Button type="submit">Update profile</Button>
       </form>
     </Form>

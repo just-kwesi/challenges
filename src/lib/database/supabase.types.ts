@@ -92,24 +92,33 @@ export type Database = {
           bio: string | null
           full_name: string | null
           id: string
+          twitch_url: string | null
           updated_at: string | null
           username: string | null
+          x_url: string | null
+          youtube_url: string | null
         }
         Insert: {
           avatar_url?: string | null
           bio?: string | null
           full_name?: string | null
           id: string
+          twitch_url?: string | null
           updated_at?: string | null
           username?: string | null
+          x_url?: string | null
+          youtube_url?: string | null
         }
         Update: {
           avatar_url?: string | null
           bio?: string | null
           full_name?: string | null
           id?: string
+          twitch_url?: string | null
           updated_at?: string | null
           username?: string | null
+          x_url?: string | null
+          youtube_url?: string | null
         }
         Relationships: [
           {

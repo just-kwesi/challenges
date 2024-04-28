@@ -18,6 +18,9 @@ import { off } from 'process'
 export type userProfile = {
   full_name: string
   bio: string
+  twitch_url?: string
+  x_url?: string
+  youtube_url?: string
 }
 
 // * LOGIN
@@ -113,7 +116,9 @@ export async function getUserdata(userId: string) {
 
   const { data, error } = await supabase
     .from('profiles')
-    .select('id, full_name, username, avatar_url, bio')
+    .select(
+      'id, full_name, username, avatar_url, bio,twitch_url,x_url,youtube_url'
+    )
     .eq('id', userId)
     .single()
 
@@ -128,14 +133,20 @@ export async function getUserdata(userId: string) {
 }
 
 // * UPDATE USER DATA
-export async function updateUserprofile({ full_name, bio }: userProfile) {
+export async function updateUserprofile({
+  full_name,
+  bio,
+  youtube_url,
+  twitch_url,
+  x_url,
+}: userProfile) {
   const supabase = createClient()
   const userSession = (await supabase.auth.getSession()).data.session
   if (!userSession) redirect('/login')
 
   const { data, error } = await supabase
     .from('profiles')
-    .update({ full_name, bio })
+    .update({ full_name, bio, youtube_url, twitch_url, x_url })
     .eq('id', userSession.user.id)
     .single()
 
@@ -245,7 +256,9 @@ export async function getSignedInUserProfile() {
 
   const { data, error } = await supabase
     .from('profiles')
-    .select('id, full_name, username, avatar_url, bio')
+    .select(
+      'id, full_name, username, avatar_url, bio, x_url,twitch_url,youtube_url'
+    )
     .eq('id', userId)
     .single()
 
