@@ -36,6 +36,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 const videoFormSchema = z.object({
   game: z.string({
@@ -260,14 +261,46 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
                 {/* <FormLabel>Accept terms and conditions</FormLabel> */}
                 <FormLabel>
                   <Dialog>
-                    <DialogTrigger>Accept terms and conditions</DialogTrigger>
+                    <DialogTrigger className="underline underline-offset-4 hover:text-primary">
+                      Accept terms and conditions
+                    </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
-                        <DialogTitle>Are you absolutely sure?</DialogTitle>
+                        <DialogTitle>Video Submission Guidelines</DialogTitle>
                         <DialogDescription>
-                          This action cannot be undone. This will permanently
-                          delete your account and remove your data from our
-                          servers.
+                          <ScrollArea className="h-[400px]  rounded-md border p-4 space-y-2 px-2">
+                            <div className="space-y-2 text-left">
+                              <ul className="space-y-2 list-disc [&>li]:mt-2">
+                                <li>
+                                  <p>
+                                    <strong>Relevance:</strong>
+                                  </p>
+                                  All videos submitted must directly pertain to
+                                  the game they are categorized under. Videos
+                                  that do not clearly relate to the specified
+                                  game will not be accepted.
+                                </li>
+                                <li>
+                                  <p>
+                                    <strong>Duration:</strong>
+                                  </p>
+                                  Videos submitted to the platform must not
+                                  exceed 5 minutes (300 seconds) in length.
+                                  Videos longer than this limit will not be
+                                  accepted for upload.
+                                </li>
+                                <li>
+                                  <p>
+                                    <strong>Quality:</strong>
+                                  </p>
+                                  Submitted videos should be of good quality,
+                                  both in terms of audio and visual components.
+                                  Videos with poor resolution, significant
+                                  artifacts, or distorted audio may be rejected.
+                                </li>
+                              </ul>
+                            </div>
+                          </ScrollArea>
                         </DialogDescription>
                       </DialogHeader>
                     </DialogContent>

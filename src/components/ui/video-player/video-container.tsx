@@ -23,7 +23,7 @@ const VideoPlayerContainer = ({ res }: { res: any }) => {
     <div className="flex flex-col gap-x-7 md:flex-row">
       <div className="basis-9/12">
         <p className="mb-2 text-base font-medium">Video Player</p>
-        <div className="aspect-video min-w-[400px] h-auto">
+        <div className="aspect-video min-w-[250px] h-auto">
           <VideoPlayerNoSSR url={videoUrl} />
         </div>
       </div>
