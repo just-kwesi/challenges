@@ -47,6 +47,28 @@ export async function login(data: FormData) {
   }
 }
 
+// * Check if the username is picked
+export async function checkUsername(potentialUsername: string) {
+  try {
+    const supabase = createClient()
+
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('id,username')
+      .eq('username', potentialUsername.toLowerCase())
+      .single()
+
+    // console.log(error, data)
+    if (error?.code == 'PGRST116') {
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    return { error }
+  }
+}
+
 // * SIGNUP
 export async function signup(data: SignupData) {
   const supabase = createClient()
@@ -56,12 +78,13 @@ export async function signup(data: SignupData) {
     options: {
       data: {
         full_name: data.full_name,
-        username: data.username,
+        username: data.username.toLowerCase(),
       },
     },
   }
 
   const { error } = await supabase.auth.signUp(signupData)
+  console.log(error)
   // const { error } = await supabase.auth.signUp(data)
 
   if (error) {
@@ -492,6 +515,7 @@ export async function hasVoted(videoId: string) {
       .eq('user_id', userId)
       .eq('video_id', videoId)
       .single()
+
     if (error?.code == 'PGRST116') {
       return { voted: false }
     }

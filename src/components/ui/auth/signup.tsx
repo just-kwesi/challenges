@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { signup } from '@/lib/database/actions'
+import { signup, checkUsername } from '@/lib/database/actions'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -16,7 +16,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
-import Link from 'next/link'
 
 export const FormSchema = z
   .object({
@@ -30,6 +29,7 @@ export const FormSchema = z
       .min(5, { message: 'Full name must have at least five characters' }),
     username: z
       .string()
+      .toLowerCase()
       .min(3, { message: 'Username must be at least 3 characters long.' }) // Minimum length
       .max(20, { message: 'Username must not exceed 20 characters.' }) // Maximum length
       .regex(
@@ -43,6 +43,22 @@ export const FormSchema = z
     message: 'Passwords do not match',
     path: ['passwordConfirm'],
   })
+  .refine(
+    async (data) => {
+      const { success, error } = await checkUsername(data.username)
+      if (error) {
+        toast({
+          title: 'Uh oh!',
+          description: ' Something went wrong.',
+        })
+      }
+      return success
+    },
+    {
+      message: 'Username has been taken.',
+      path: ['username'],
+    }
+  )
 
 export type SignupData = z.infer<typeof FormSchema>
 
@@ -59,12 +75,20 @@ export function SignupForm({}) {
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const res = await signup(data)
+    console.log(data)
+    const { error } = await signup(data)
     // console.log(res)
-    toast({
-      title: 'Please confirm your email address.',
-      description: 'Check your inbox for the confirmation email.',
-    })
+    if (error) {
+      toast({
+        title: 'Uh oh!',
+        description: ' Something went wrong.',
+      })
+    } else {
+      toast({
+        title: 'Please confirm your email address.',
+        description: 'Check your inbox for the confirmation email.',
+      })
+    }
   }
 
   return (
@@ -96,7 +120,7 @@ export function SignupForm({}) {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="clipped" {...field} />
+                <Input placeholder="Klipped" {...field} />
               </FormControl>
               <FormDescription>
                 This is your public display name.

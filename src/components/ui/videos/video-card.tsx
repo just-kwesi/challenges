@@ -39,8 +39,9 @@ export function VideoCard({
   id,
 }: VideoCardProps) {
   return (
-    <div className="max-w-[275px] min-h-[300px] rounded overflow-hidden shadow-lg min-w-[220px] border">
-      <div className="relative">
+    // <div className="sm:max-w-[350px] min-h-[300px] rounded overflow-hidden shadow-lg sm:min-w-[250px] border w-dvw">
+    <div className="sm:max-w-[350px] min-h-auto rounded overflow-hidden shadow-lg sm:min-w-[250px] border w-[300px]">
+      <div className="relative w-auto">
         <Link href={`videos/${id}`} passHref>
           <VideoPlayerNoSSR url={thumbnail} />
         </Link>
@@ -49,19 +50,20 @@ export function VideoCard({
           {duration}
         </p> */}
       </div>
-      <div className="px-6 py-4">
-        <div className="flex items-center space-x-2 mb-2">
+      <div className="px-6 py-6">
+        <div className="flex items-center space-x-1 gap-2">
           <Image
-            className="w-7 h-7 rounded-full"
+            className="w-9 h-9 rounded-full"
             src={avatar}
             alt={`${username}'s avatar`}
             height={32}
             width={32}
           />
-          <p className="text-base text-muted-foreground">{username}</p>
+          <div>
+            <p className="text-base">{title}</p>
+            <p className="text-sm text-muted-foreground">@{username}</p>
+          </div>
         </div>
-
-        <p className="leading-7 [&:not(:first-child)]:mt-6">{title}</p>
 
         {/* <div className="flex justify-between items-center text-xs text-muted-foreground mt-6">
           <p>{timeSubmitted}</p>
