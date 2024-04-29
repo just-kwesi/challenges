@@ -89,7 +89,6 @@ export function DataTableFacetedFilter<TData, TValue>({
             <CommandGroup>
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value)
-                const filterValues: string[] = []
 
                 return (
                   <CommandItem
@@ -105,6 +104,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                         filterValues.length ? filterValues : undefined
                       )
                     }}
+                    // className={`${facets?.get(option.value) ? '' : 'hidden'}`}
                   >
                     <div
                       className={cn(

@@ -22,6 +22,7 @@ export default async function Videos({ userId }: { userId: string }) {
                 // views={sampleVideo.views}
                 key={index}
                 id={video.id}
+                userPage={true}
               />
             )
           })}

@@ -45,6 +45,7 @@ const Page = ({ gameId }: { gameId: string }) => {
           videos.map((video) => (
             <VideoCard
               thumbnail={video.url as string}
+              userPage={false}
               username={video.profiles!.username || ''}
               title={video.title as string}
               key={video.id as string}

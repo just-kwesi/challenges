@@ -52,7 +52,6 @@ export const columns: ColumnDef<chartRowData>[] = [
     ),
     cell: ({ row }) => {
       const videoId = row.original.id
-      console.log(row.original)
       const username = row.original.username
 
       return (
