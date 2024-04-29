@@ -13,7 +13,6 @@ import {
   QueryError,
   AuthError,
 } from '@supabase/supabase-js'
-import { off } from 'process'
 
 export type userProfile = {
   full_name: string
@@ -25,26 +24,17 @@ export type userProfile = {
 
 // * LOGIN
 export async function login(data: FormData) {
-  try {
-    const supabase = createClient()
-    const { error } = await supabase.auth.signInWithPassword(data)
+  const supabase = createClient()
+  const { error } = await supabase.auth.signInWithPassword(data)
 
-    if (error) {
-      throw error
-    }
-
-    revalidatePath('/', 'layout')
-    redirect('/')
-  } catch (error: any) {
-    // console.log(error)
+  if (error) {
     return {
-      error: {
-        error: error.name,
-        message: error.message,
-        status: error.status,
-      },
+      error: true,
     }
   }
+
+  revalidatePath('/', 'layout')
+  redirect('/')
 }
 
 // * Check if the username is picked
@@ -84,7 +74,7 @@ export async function signup(data: SignupData) {
   }
 
   const { error } = await supabase.auth.signUp(signupData)
-  console.log(error)
+  // console.log(error)
   // const { error } = await supabase.auth.signUp(data)
 
   if (error) {
