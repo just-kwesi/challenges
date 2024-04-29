@@ -1,5 +1,4 @@
 import { LoginForm } from '@/components/ui/auth/login'
-import Link from 'next/link'
 import Terms from '@/components/ui/auth/terms'
 
 export default function Login() {
