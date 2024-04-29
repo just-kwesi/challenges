@@ -1,3 +1,4 @@
+import Oauth from '@/components/ui/auth/oauth-component'
 import { SignupForm } from '@/components/ui/auth/signup'
 import Terms from '@/components/ui/auth/terms'
 export default function Signup() {
@@ -13,6 +14,7 @@ export default function Signup() {
           </p>
         </div>
         <SignupForm />
+        <Oauth />
         <Terms />
       </div>
     </main>

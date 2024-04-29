@@ -1,5 +1,6 @@
 'use server'
 import { createClient } from '@/lib/supabase/server'
+import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache'
 
@@ -35,6 +36,24 @@ export async function login(data: FormData) {
 
   revalidatePath('/', 'layout')
   redirect('/')
+}
+
+export async function loginWithOauth(prov: string) {
+  const supabase = createClient()
+  const origin = headers().get('origin')
+  console.log(`${origin}/auth/callback`)
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `${origin}/auth/callback`,
+    },
+  })
+  console.log(data)
+  if (error) {
+    return { error: true }
+  } else {
+    redirect(data.url)
+  }
 }
 
 // * Check if the username is picked

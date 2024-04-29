@@ -272,27 +272,27 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
                             <div className="space-y-2 text-left">
                               <ul className="space-y-2 list-disc [&>li]:mt-2">
                                 <li>
-                                  <p>
+                                  <span>
                                     <strong>Relevance:</strong>
-                                  </p>
+                                  </span>
                                   All videos submitted must directly pertain to
                                   the game they are categorized under. Videos
                                   that do not clearly relate to the specified
                                   game will not be accepted.
                                 </li>
                                 <li>
-                                  <p>
+                                  <span>
                                     <strong>Duration:</strong>
-                                  </p>
+                                  </span>
                                   Videos submitted to the platform must not
                                   exceed 5 minutes (300 seconds) in length.
                                   Videos longer than this limit will not be
                                   accepted for upload.
                                 </li>
                                 <li>
-                                  <p>
+                                  <span>
                                     <strong>Quality:</strong>
-                                  </p>
+                                  </span>
                                   Submitted videos should be of good quality,
                                   both in terms of audio and visual components.
                                   Videos with poor resolution, significant

@@ -22,18 +22,18 @@ export default function Terms() {
             <DialogDescription className="">
               <ScrollArea className="h-[400px]  rounded-md border p-4 space-y-2">
                 <div className="space-y-2 text-left">
-                  <p>
+                  <span>
                     <strong>1. Introduction</strong>
-                  </p>
-                  <p>
+                  </span>
+                  <span>
                     Welcome to our gaming video submission and voting platform!
                     By accessing and using our website, you agree to comply with
                     and be bound by the following terms and conditions. Please
                     review these terms carefully.
-                  </p>
-                  <p>
+                  </span>
+                  <span>
                     <strong>2. User Responsibilities</strong>
-                  </p>
+                  </span>
                   <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
                     <li>
                       You must not upload, post, or transmit any video or
@@ -50,9 +50,9 @@ export default function Terms() {
                       purposes or to promote illegal activities.
                     </li>
                   </ul>
-                  <p>
+                  <span>
                     <strong>3. Account Registration and Management</strong>
-                  </p>
+                  </span>
                   <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
                     <li>
                       You must provide accurate and complete information when
@@ -64,9 +64,9 @@ export default function Terms() {
                       to be inaccurate or incomplete.
                     </li>
                   </ul>
-                  <p>
+                  <span>
                     <strong>4. Intellectual Property</strong>
-                  </p>
+                  </span>
                   <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
                     <li>
                       Users retain all ownership rights to the videos they
@@ -80,9 +80,9 @@ export default function Terms() {
                       property rights under national and international laws.
                     </li>
                   </ul>
-                  <p>
+                  <span>
                     <strong>5. Disclaimers and Limitation of Liability</strong>
-                  </p>
+                  </span>
                   <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
                     <li>
                       Our platform is provided on an &quot;as is&quot; and
@@ -95,9 +95,9 @@ export default function Terms() {
                       your use of the platform.
                     </li>
                   </ul>
-                  <p>
+                  <span>
                     <strong>6. Dispute Resolution</strong>
-                  </p>
+                  </span>
                   <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
                     <li>
                       Any disputes arising from the use of our platform will be
@@ -105,9 +105,9 @@ export default function Terms() {
                       the rules of American Arbitration Association (AAA).
                     </li>
                   </ul>
-                  <p>
+                  <span>
                     <strong>7. Changes to Terms</strong>
-                  </p>
+                  </span>
                   <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
                     <li>
                       We reserve the right to modify these terms at any time.
@@ -116,13 +116,13 @@ export default function Terms() {
                       terms.
                     </li>
                   </ul>
-                  <p>
+                  <span>
                     <strong>8. Contact Information</strong>
-                  </p>
-                  <p>
+                  </span>
+                  <span>
                     If you have any questions about these Terms of Service,
                     please contact us at [Your Contact Information].
-                  </p>
+                  </span>
                 </div>
               </ScrollArea>
             </DialogDescription>

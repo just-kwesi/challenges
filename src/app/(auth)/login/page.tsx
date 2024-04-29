@@ -1,6 +1,6 @@
 import { LoginForm } from '@/components/ui/auth/login'
 import Terms from '@/components/ui/auth/terms'
-
+import Oauth from '@/components/ui/auth/oauth-component'
 export default function Login() {
   return (
     <main>
@@ -14,6 +14,7 @@ export default function Login() {
           </p>
         </div>
         <LoginForm />
+        <Oauth />
         <Terms />
       </div>
     </main>
