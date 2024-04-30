@@ -10,6 +10,14 @@ export default function Oauth() {
     setGoogleAuth(!googleAuth)
     const { error } = await loginWithOauth('google')
   }
+  async function handleTwitchAuth() {
+    setGoogleAuth(!googleAuth)
+    const { error } = await loginWithOauth('google')
+  }
+  async function handleDiscordAuth() {
+    setGoogleAuth(!googleAuth)
+    const { error } = await loginWithOauth('google')
+  }
   return (
     <div className="w-full">
       <div className="relative mb-4">

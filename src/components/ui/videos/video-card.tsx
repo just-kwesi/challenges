@@ -34,7 +34,7 @@ export function VideoCard({
 }: VideoCardProps) {
   return (
     // <div className="sm:max-w-[350px] min-h-[300px] rounded overflow-hidden shadow-lg sm:min-w-[250px] border w-dvw">
-    <div className="sm:max-w-[350px] min-h-auto rounded overflow-hidden shadow-lg sm:min-w-[250px] border w-[300px]">
+    <div className="sm:max-w-[350px] min-h-auto rounded overflow-hidden shadow-lg sm:min-w-[200px] border w-[300px]">
       <div className="relative w-auto">
         {(userPage && (
           <Link href={`/videos/${id}`} passHref>

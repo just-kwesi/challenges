@@ -14,7 +14,7 @@ export default function Login() {
           </p>
         </div>
         <LoginForm />
-        <Oauth />
+        {/* <Oauth /> */}
         <Terms />
       </div>
     </main>

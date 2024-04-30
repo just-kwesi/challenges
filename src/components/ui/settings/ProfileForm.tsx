@@ -81,7 +81,7 @@ export default function Profile({
     // * they can't go on without a username
     if (!userData.username) {
       const { success, error } = await checkUsername(data.username)
-      console.log(success)
+
       if (error) {
         toast({
           title: 'Uh oh!',
@@ -94,8 +94,6 @@ export default function Profile({
           description: 'Please Enter another username',
         })
       } else {
-        console.log('here')
-
         const error = await updateUserprofile({
           username,
           full_name,

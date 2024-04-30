@@ -14,7 +14,7 @@ export default function Signup() {
           </p>
         </div>
         <SignupForm />
-        <Oauth />
+        {/* <Oauth /> */}
         <Terms />
       </div>
     </main>
