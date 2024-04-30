@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
+import { useRouter } from 'next/navigation'
 
 export const FormSchema = z
   .object({
@@ -63,6 +64,7 @@ export const FormSchema = z
 export type SignupData = z.infer<typeof FormSchema>
 
 export function SignupForm({}) {
+  const router = useRouter()
   const form = useForm<SignupData>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -75,19 +77,19 @@ export function SignupForm({}) {
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data)
-    const { error } = await signup(data)
-    // console.log(res)
+    const { success, error } = await signup(data)
     if (error) {
       toast({
         title: 'Uh oh!',
         description: ' Something went wrong.',
       })
-    } else {
+    }
+    if (success) {
       toast({
         title: 'Please confirm your email address.',
         description: 'Check your inbox for the confirmation email.',
       })
+      router.push('/')
     }
   }
 

@@ -99,9 +99,12 @@ export async function signup(data: SignupData) {
     return { error: error.name, message: error.message }
     // redirect(`/login/error?${error.message}`)
   }
+  return {
+    success: true,
+  }
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+  // revalidatePath('/', 'layout')
+  // redirect('/')
 }
 
 // * Reset password
