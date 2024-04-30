@@ -27,7 +27,7 @@ const Page = ({ gameId }: { gameId: string }) => {
   const fetchMoreVideos = async () => {
     const { success, error } = await getGameVideos(offset, gameId)
     if (success) {
-      // console.log(success)
+      console.log(success)
       setVideos((prevVideos) => [...prevVideos, ...success])
       success.length > 0 ? setHasMore(true) : setHasMore(false)
       setOffset((prevOffset) => (prevOffset += 10))
@@ -36,33 +36,35 @@ const Page = ({ gameId }: { gameId: string }) => {
 
   return (
     <div className="overflow-y-hidden w-full">
-      <InfiniteScroll
-        dataLength={videos.length}
-        next={fetchMoreVideos}
-        hasMore={hasMore}
-        loader={<Icons.spinner className="mx-auto h-12 w-12 animate-spin" />}
-      >
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center"> */}
-        <div className="flex flex-wrap w-fit gap-3 justify-center align-center">
-          {videos &&
-            videos.map((video) => (
-              <VideoCard
-                thumbnail={video.url as string}
-                userPage={false}
-                username={video.profiles!.username || ''}
-                title={video.title as string}
-                key={video.id as string}
-                id={video.id as string}
-                avatar={
-                  video.profiles!.avatar_url ||
-                  `https://ui-avatars.com/api/?name=${
-                    video.profiles!.username
-                  }&background=random`
-                }
-              />
-            ))}
-        </div>
-      </InfiniteScroll>
+      {videos.length > 0 && (
+        <InfiniteScroll
+          dataLength={videos.length}
+          next={fetchMoreVideos}
+          hasMore={hasMore}
+          loader={<Icons.spinner className="mx-auto h-12 w-12 animate-spin" />}
+        >
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center"> */}
+          <div className="flex flex-wrap w-fit gap-3 justify-center align-center">
+            {videos.length > 0 &&
+              videos.map((video) => (
+                <VideoCard
+                  thumbnail={video.url as string}
+                  userPage={false}
+                  username={video.profiles?.username || ''}
+                  title={video.title as string}
+                  key={video.id as string}
+                  id={video.id as string}
+                  avatar={
+                    video.profiles?.avatar_url ||
+                    `https://ui-avatars.com/api/?name=${
+                      video.profiles!.username
+                    }&background=random`
+                  }
+                />
+              ))}
+          </div>
+        </InfiniteScroll>
+      )}
     </div>
   )
 }

@@ -6,7 +6,7 @@ export default async function Videos({ userId }: { userId: string }) {
   return (
     <main className="container mx-auto px-4">
       {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center"> */}
-      <div className="flex  gap-2 justify-items-center">
+      <div className="flex flex-col sm:flex-row gap-2 justify-items-center">
         {success &&
           success.map((video, index) => {
             return (
