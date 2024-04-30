@@ -1,6 +1,8 @@
 'use client'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { Icons } from '@/components/icons'
+
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
@@ -10,9 +12,7 @@ export function FullNav() {
   return (
     <div className="mr-4 hidden md:flex">
       <Link href="/" className="mr-10 flex items-center space-x-2">
-        <span className="hidden font-normal  sm:inline-block text-muted-foreground">
-          @Klipped
-        </span>
+        <Icons.logo className="w-20 h-20" />
       </Link>
       {/* <nav className="flex items-center gap-6 text-sm">
         <Link

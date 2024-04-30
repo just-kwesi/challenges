@@ -120,7 +120,7 @@ export function SignupForm({}) {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="Klipped" {...field} />
+                <Input placeholder="Example: Klipped" {...field} />
               </FormControl>
               <FormDescription>
                 This is your public display name.

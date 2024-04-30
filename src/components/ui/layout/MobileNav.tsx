@@ -12,6 +12,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 import { SidebarDoc } from '@/lib/config/docs'
+import { Icons } from '@/components/icons'
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false)
@@ -30,7 +31,7 @@ export function MobileNav() {
           onOpenChange={setOpen}
         >
           {/* <Image src={logo} width={24} height={24} alt="logo" /> */}
-          <span className="font-bold">kwesi</span>
+          <Icons.logo className="w-20 h-20" />
         </MobileLink>
 
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
