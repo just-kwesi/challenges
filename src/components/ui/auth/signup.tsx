@@ -23,7 +23,11 @@ export const FormSchema = z
     email: z.string().email({ message: 'Invalid email address' }),
     password: z
       .string()
-      .min(8, { message: 'Password must be at least 8 characters long' }),
+      .min(8, { message: 'Password must be at least 8 characters long' })
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, {
+        message:
+          'Minimum eight characters, at least one uppercase letter, one lowercase letter and one number',
+      }),
     passwordConfirm: z.string(),
     full_name: z
       .string()
