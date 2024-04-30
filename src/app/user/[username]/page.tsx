@@ -2,13 +2,18 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Videos from '@/components/ui/videos/videos'
 import { Separator } from '@/components/ui/separator'
 import { getUserDetails } from '@/lib/database/actions'
-
+import { redirect } from 'next/navigation'
 export default async function UserProfile({
   params,
 }: {
   params: { username: string }
 }) {
   const usrname = params.username
+
+  if (!usrname) {
+    redirect('/settings/profile')
+  }
+
   const { username, full_name, bio, avatar_url, id } = await getUserDetails(
     usrname
   )

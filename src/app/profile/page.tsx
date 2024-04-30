@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
 import { Icons } from '@/components/icons'
 import { cn } from '@/lib/utils'
+import { redirect } from 'next/navigation'
 
 export default async function UserProfile() {
   const {
@@ -18,6 +19,9 @@ export default async function UserProfile() {
     twitch_url,
     youtube_url,
   } = await getSignedInUserProfile()
+  if (!username) {
+    redirect('/settings/profile')
+  }
   const avartarURL =
     avatar_url ||
     `https://ui-avatars.com/api/?name=${username}&background=random`

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { cn } from '@/lib/utils'
-import { usePathname } from 'next/navigation'
+import { redirect, usePathname } from 'next/navigation'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,6 +27,10 @@ export function UserNav({
   const username = userProfile ? userProfile.username : 'example_username'
   const fullName = userProfile ? userProfile.full_name : 'Example Name'
   const avartarURL = `https://ui-avatars.com/api/?name=${username}&background=random`
+
+  if (!username) {
+    redirect('/settings/profile')
+  }
 
   return (
     <DropdownMenu>

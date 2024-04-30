@@ -17,7 +17,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from '@/components/ui/use-toast'
-import { updateUserprofile } from '@/lib/database/actions'
+import { updateUserprofile, checkUsername } from '@/lib/database/actions'
 
 const userProfileSchema = z.object({
   full_name: z
@@ -73,28 +73,59 @@ export default function Profile({
   })
 
   async function onSubmit(data: ProfileFormValues) {
-    const { full_name, bio, twitch_url, x_url, youtube_url } = data
-    const error = await updateUserprofile({
-      full_name,
-      bio,
-      twitch_url,
-      x_url,
-      youtube_url,
-    })
-    if (error) {
-      toast({
-        title: 'Uh oh! Something went wrong.',
-        description: 'Invalid login credentials',
-      })
+    const { full_name, bio, twitch_url, x_url, youtube_url, username } = data
+
+    // * a lot of messy code here
+    // * instead of just submitting userdata
+    // * user after goole,twith and discord oauth are lead here and must input a username to go on.
+    // * they can't go on without a username
+    if (!userData.username) {
+      const { success, error } = await checkUsername(data.username)
+      console.log(success)
+      if (error) {
+        toast({
+          title: 'Uh oh!',
+          description: ' Something went wrong.',
+        })
+      }
+      if (!success) {
+        toast({
+          title: 'Username taken',
+          description: 'Please Enter another username',
+        })
+      } else {
+        console.log('here')
+
+        const error = await updateUserprofile({
+          username,
+          full_name,
+        })
+      }
     } else {
-      toast({
-        title: 'You changes have been submitted...',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <p className="text-white">Your Account details has been updated</p>
-          </pre>
-        ),
+      const error = await updateUserprofile({
+        full_name,
+        bio,
+        twitch_url,
+        x_url,
+        youtube_url,
       })
+      if (error) {
+        toast({
+          title: 'Uh oh! Something went wrong.',
+          description: 'Invalid login credentials',
+        })
+      } else {
+        toast({
+          title: 'You changes have been submitted...',
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              <p className="text-white">
+                Your Account details has been updated
+              </p>
+            </pre>
+          ),
+        })
+      }
     }
   }
 
@@ -129,7 +160,7 @@ export default function Profile({
                 <Input
                   placeholder={userData.username || 'username'}
                   {...field}
-                  disabled
+                  disabled={userData.username ? true : false}
                 />
               </FormControl>
               <FormDescription>

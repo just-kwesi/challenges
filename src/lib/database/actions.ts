@@ -17,10 +17,11 @@ import {
 
 export type userProfile = {
   full_name: string
-  bio: string
+  bio?: string
   twitch_url?: string
   x_url?: string
   youtube_url?: string
+  username?: string
 }
 
 // * LOGIN
@@ -41,14 +42,12 @@ export async function login(data: FormData) {
 export async function loginWithOauth(prov: string) {
   const supabase = createClient()
   const origin = headers().get('origin')
-  console.log(`${origin}/auth/callback`)
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
       redirectTo: `${origin}/auth/callback`,
     },
   })
-  console.log(data)
   if (error) {
     return { error: true }
   } else {
@@ -171,6 +170,7 @@ export async function updateUserprofile({
   youtube_url,
   twitch_url,
   x_url,
+  username,
 }: userProfile) {
   const supabase = createClient()
   const userSession = (await supabase.auth.getSession()).data.session
@@ -178,10 +178,10 @@ export async function updateUserprofile({
 
   const { data, error } = await supabase
     .from('profiles')
-    .update({ full_name, bio, youtube_url, twitch_url, x_url })
+    .update({ full_name, bio, youtube_url, twitch_url, x_url, username })
     .eq('id', userSession.user.id)
     .single()
-
+  console.log(data)
   if (error) {
     return {
       error: { error: error.code, message: error.message },
