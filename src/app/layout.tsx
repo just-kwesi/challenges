@@ -1,7 +1,8 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import './globals.css'
+import { siteConfig } from '@/lib/config/site'
 
 import { SiteHeader } from '@/components/ui/layout/SiteHeader'
 import { SiteFooter } from '@/components/ui/layout/SiteFooter'
@@ -14,8 +15,66 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Game Clips',
-  description: 'Get your game clips ranked',
+  title: {
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`,
+  },
+  metadataBase: new URL(siteConfig.url),
+  description: siteConfig.description,
+  keywords: [
+    'Game',
+    'Videos',
+    'Apex legends',
+    'Overwatch 2',
+    'Call of Duty',
+    'Fortnite',
+    'Valorant',
+    'FPS',
+    'ALGS',
+  ],
+  authors: [
+    {
+      name: 'frederick tetteh',
+      url: 'https://frederick-tetteh.com',
+    },
+  ],
+  creator: 'Frederick Tetteh',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+    creator: '@fhred_rick',
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: `${siteConfig.url}/site.webmanifest`,
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
+  ],
 }
 
 export default function RootLayout({
