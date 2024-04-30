@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import './globals.css'
 
 import { SiteHeader } from '@/components/ui/layout/SiteHeader'
-// import { SiteFooter } from '@/components/ui/layout/SiteFooter'
+import { SiteFooter } from '@/components/ui/layout/SiteFooter'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/toaster'
 
@@ -41,7 +41,7 @@ export default function RootLayout({
             <SiteHeader />
             <main className="flex-1">{children}</main>
             <Toaster />
-            {/* <SiteFooter /> */}
+            <SiteFooter />
           </div>
         </ThemeProvider>
       </body>
