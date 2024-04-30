@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
 import { cn } from '@/lib/utils'
 import './globals.css'
 import { siteConfig } from '@/lib/config/site'
@@ -99,6 +100,7 @@ export default function RootLayout({
           <div className="relative flex min-h-screen flex-col bg-background max-w-screen-lg mx-auto">
             <SiteHeader />
             <main className="flex-1">{children}</main>
+            <Analytics />
             <Toaster />
             <SiteFooter />
           </div>
