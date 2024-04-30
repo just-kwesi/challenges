@@ -7,7 +7,7 @@ import { GameCard } from '@/components/ui/homepage/game-card'
 export default async function Home() {
   const { success, error } = await getGameDetails()
   return (
-    <main className="border-b">
+    <main className="">
       <div className="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-3 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-2">
         <aside className="fixed top-14 z-30 -ml-2 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 md:sticky md:block">
           <ScrollArea className="h-full py-6 pr-6 lg:py-8">
