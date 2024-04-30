@@ -27,14 +27,14 @@ export function MobileNav() {
       <SheetContent side="left" className="pr-0">
         <MobileLink
           href="/"
-          className="flex items-center gap-3 ml-5"
+          className="flex items-center ml-1"
           onOpenChange={setOpen}
         >
           {/* <Image src={logo} width={24} height={24} alt="logo" /> */}
           <Icons.logo className="w-20 h-20" />
         </MobileLink>
 
-        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
+        <ScrollArea className="h-full pb-6 pr-6 lg:py-8">
           {/* <div className="flex flex-col space-y-3">
             {docsConfig.mainNav?.map(
               (item) =>
