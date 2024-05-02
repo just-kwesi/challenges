@@ -1,6 +1,5 @@
 'use server'
 import { createClient } from '@/lib/supabase/server'
-import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache'
 
@@ -14,66 +13,34 @@ import {
   QueryError,
   AuthError,
 } from '@supabase/supabase-js'
+import { off } from 'process'
 
 export type userProfile = {
   full_name: string
-  bio?: string
-  twitch_url?: string
-  x_url?: string
-  youtube_url?: string
-  username?: string
+  bio: string
 }
 
 // * LOGIN
 export async function login(data: FormData) {
-  const supabase = createClient()
-  const { error } = await supabase.auth.signInWithPassword(data)
-
-  if (error) {
-    return {
-      error: true,
-    }
-  }
-
-  revalidatePath('/', 'layout')
-  redirect('/')
-}
-
-export async function loginWithOauth(prov: string) {
-  const supabase = createClient()
-  const origin = headers().get('origin')
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: {
-      redirectTo: `${origin}/auth/callback`,
-    },
-  })
-  if (error) {
-    return { error: true }
-  } else {
-    redirect(data.url)
-  }
-}
-
-// * Check if the username is picked
-export async function checkUsername(potentialUsername: string) {
   try {
     const supabase = createClient()
+    const { error } = await supabase.auth.signInWithPassword(data)
 
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('id,username')
-      .eq('username', potentialUsername.toLowerCase())
-      .single()
-
-    // console.log(error, data)
-    if (error?.code == 'PGRST116') {
-      return { success: true }
-    } else {
-      return { success: false }
+    if (error) {
+      throw error
     }
-  } catch (error) {
-    return { error }
+
+    revalidatePath('/', 'layout')
+    redirect('/')
+  } catch (error: any) {
+    // console.log(error)
+    return {
+      error: {
+        error: error.name,
+        message: error.message,
+        status: error.status,
+      },
+    }
   }
 }
 
@@ -86,25 +53,21 @@ export async function signup(data: SignupData) {
     options: {
       data: {
         full_name: data.full_name,
-        username: data.username.toLowerCase(),
+        username: data.username,
       },
     },
   }
 
   const { error } = await supabase.auth.signUp(signupData)
-  // console.log(error)
   // const { error } = await supabase.auth.signUp(data)
 
   if (error) {
     return { error: error.name, message: error.message }
     // redirect(`/login/error?${error.message}`)
   }
-  return {
-    success: true,
-  }
 
-  // revalidatePath('/', 'layout')
-  // redirect('/')
+  revalidatePath('/', 'layout')
+  redirect('/')
 }
 
 // * Reset password
@@ -150,9 +113,7 @@ export async function getUserdata(userId: string) {
 
   const { data, error } = await supabase
     .from('profiles')
-    .select(
-      'id, full_name, username, avatar_url, bio,twitch_url,x_url,youtube_url'
-    )
+    .select('id, full_name, username, avatar_url, bio')
     .eq('id', userId)
     .single()
 
@@ -167,24 +128,17 @@ export async function getUserdata(userId: string) {
 }
 
 // * UPDATE USER DATA
-export async function updateUserprofile({
-  full_name,
-  bio,
-  youtube_url,
-  twitch_url,
-  x_url,
-  username,
-}: userProfile) {
+export async function updateUserprofile({ full_name, bio }: userProfile) {
   const supabase = createClient()
   const userSession = (await supabase.auth.getSession()).data.session
   if (!userSession) redirect('/login')
 
   const { data, error } = await supabase
     .from('profiles')
-    .update({ full_name, bio, youtube_url, twitch_url, x_url, username })
+    .update({ full_name, bio })
     .eq('id', userSession.user.id)
     .single()
-  console.log(data)
+
   if (error) {
     return {
       error: { error: error.code, message: error.message },
@@ -291,9 +245,7 @@ export async function getSignedInUserProfile() {
 
   const { data, error } = await supabase
     .from('profiles')
-    .select(
-      'id, full_name, username, avatar_url, bio, x_url,twitch_url,youtube_url'
-    )
+    .select('id, full_name, username, avatar_url, bio')
     .eq('id', userId)
     .single()
 
@@ -527,7 +479,6 @@ export async function hasVoted(videoId: string) {
       .eq('user_id', userId)
       .eq('video_id', videoId)
       .single()
-
     if (error?.code == 'PGRST116') {
       return { voted: false }
     }

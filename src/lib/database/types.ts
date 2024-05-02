@@ -60,3 +60,18 @@ export interface videosList {
     avatar_url: string | null
   } | null
 }
+
+export type EditVideoType = {
+  id: string
+  title: string
+  description: string | null
+  url: string
+  categories: {
+    name: string
+  } | null
+  profiles: {
+    username: string | null
+    id: string
+    avatar_url: string | null
+  } | null
+}

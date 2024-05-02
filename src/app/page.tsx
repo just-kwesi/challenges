@@ -3,6 +3,8 @@ import { SidebarDoc } from '@/lib/config/docs'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { DocsSidebarNav } from '@/components/ui/layout/sidebar-nav'
 import { GameCard } from '@/components/ui/homepage/game-card'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { InfoIcon } from 'lucide-react'
 
 export default async function Home() {
   const { success, error } = await getGameDetails()
@@ -14,8 +16,16 @@ export default async function Home() {
             <DocsSidebarNav items={SidebarDoc} />
           </ScrollArea>
         </aside>
-        <div>
-          <div className="space-y-0.5 mt-5 text-center">
+        <div className="flex justify-center flex-col">
+          <Alert className="my-5 w-full">
+            <InfoIcon className="h-4 w-4" />
+            <AlertTitle>Create an Account to Submit Videos</AlertTitle>
+            <AlertDescription>
+              Please sign up to submit your videos. We greatly appreciate each
+              video you contribute!
+            </AlertDescription>
+          </Alert>
+          <div className="space-y-0.5 mt-4 text-center">
             <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-5">
               Games
             </h3>
