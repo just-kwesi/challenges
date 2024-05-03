@@ -34,7 +34,7 @@ const VideoPlayer = ({ url }: { url: string }) => {
   return (
     <div className="relative w-auto h-auto min-h-80">
       <ReactPlayer
-        url={`${url}?parent=www.klipped.gg`}
+        url={url}
         className="react-player absolute"
         width="100%"
         height="100%"
@@ -43,6 +43,11 @@ const VideoPlayer = ({ url }: { url: string }) => {
           file: {
             attributes: {
               crossOrigin: 'true',
+            },
+          },
+          twitch: {
+            options: {
+              parent: 'klipped.gg',
             },
           },
         }}
