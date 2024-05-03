@@ -2,7 +2,6 @@ import { redirect } from 'next/navigation'
 import { Separator } from '@/components/ui/separator'
 import { createClient } from '@/lib/supabase/server'
 import EditContainer from '@/components/ui/submit-video/video-edit-container'
-import { EditVideoType } from '@/lib/database/types'
 import { getGamesAndCategories, getVideo } from '@/lib/database/actions'
 
 export default async function SubmitVideo({
@@ -11,7 +10,6 @@ export default async function SubmitVideo({
   params: { videoId: string }
 }) {
   const videoId = params.videoId
-  console.log(videoId)
   const supabase = createClient()
   const userSession = (await supabase.auth.getSession()).data.session
   if (!userSession) redirect('/login')
@@ -29,7 +27,9 @@ export default async function SubmitVideo({
         </p>
       </div>
       <Separator />
-      {videoData && <EditContainer res={res} videoData={videoData[0]} />}
+      {videoData && (
+        <EditContainer res={res} videoData={videoData[0]} videoId={videoId} />
+      )}
     </div>
   )
 }

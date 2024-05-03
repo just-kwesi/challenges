@@ -16,9 +16,11 @@ const VideoPlayerNoSSR = dynamic(
 const VideoPlayerContainer = ({
   res,
   videoData,
+  videoId,
 }: {
   res: any
   videoData: EditVideoType
+  videoId: string
 }) => {
   const [videoUrl, setVideoUrl] = useState('')
 
@@ -41,6 +43,7 @@ const VideoPlayerContainer = ({
         data={res}
         onVideoUrlChange={handleVideoUrlChange}
         videoDetails={videoData}
+        videoId={videoId}
       />
     </div>
   )

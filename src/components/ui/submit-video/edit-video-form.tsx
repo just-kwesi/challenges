@@ -1,9 +1,10 @@
 'use client'
+import { useRouter } from 'next/navigation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { submitVideo, GameCategories } from '@/lib/database/actions'
+import { updateVideo } from '@/lib/database/actions'
 import React, { ChangeEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import { EditVideoType } from '@/lib/database/types'
@@ -52,6 +53,7 @@ interface VideoSubmissionFormProps {
   onVideoUrlChange: (url: string) => void
   data: any
   videoDetails: EditVideoType
+  videoId: string
   // Include other props as needed
 }
 
@@ -59,7 +61,9 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
   data,
   onVideoUrlChange,
   videoDetails,
+  videoId,
 }) => {
+  const router = useRouter()
   const { error, gamesData, categoriesData } = data
   if (error) {
     toast({
@@ -88,15 +92,25 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
       category_id: category,
       reviewed: false,
     }
-    await submitVideo(vidData)
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <p className="text-white">Video Submission has been completed</p>
-        </pre>
-      ),
-    })
+    const { success, error } = await updateVideo(vidData, videoId)
+
+    if (error) {
+      toast({
+        title: 'Uh oh!',
+        description: ' Something went wrong.',
+      })
+    }
+    if (success) {
+      toast({
+        title: 'Success!',
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <p className="text-white">Your changes have been submitted!</p>
+          </pre>
+        ),
+      })
+      router.push('/videos')
+    }
   }
 
   const handleVideoUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -235,7 +249,7 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
             </FormItem>
           )}
         />
-        <Button type="submit">Submit Video</Button>
+        <Button type="submit">Edit Video</Button>
       </form>
     </Form>
   )
