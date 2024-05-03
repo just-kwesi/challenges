@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Videos from '@/components/ui/videos/videos'
 import { Separator } from '@/components/ui/separator'
@@ -7,6 +8,12 @@ import { buttonVariants } from '@/components/ui/button'
 import { Icons } from '@/components/icons'
 import { cn } from '@/lib/utils'
 import { redirect } from 'next/navigation'
+
+export const metadata: Metadata = {
+  title: 'User Profile | Customize Your Klipped Experience',
+  description:
+    'View and manage your uploaded game clips and account settings at Klipped. Enhance your profile to connect with other gamers!',
+}
 
 export default async function UserProfile() {
   const {

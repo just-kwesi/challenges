@@ -1,6 +1,14 @@
 import { LoginForm } from '@/components/ui/auth/login'
 import Terms from '@/components/ui/auth/terms'
 import Oauth from '@/components/ui/auth/oauth-component'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Log In to Klipped | Access Your Profile',
+  description:
+    'Log in to submit your game clips, vote on other highlights, and customize your klipped experience.',
+}
+
 export default function Login() {
   return (
     <main>

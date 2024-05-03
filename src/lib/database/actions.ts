@@ -184,7 +184,7 @@ export async function updateUserprofile({
     .update({ full_name, bio, youtube_url, twitch_url, x_url, username })
     .eq('id', userSession.user.id)
     .single()
-  console.log(data)
+  // console.log(data)
   if (error) {
     return {
       error: { error: error.code, message: error.message },
@@ -214,9 +214,46 @@ export async function submitVideo(videoData: videoData) {
     return {
       error: { error: error.code, message: error.message },
     }
+  } else {
+    return { success: true }
   }
   revalidatePath('/videos', 'page')
   redirect('/videos')
+}
+
+//  category_id: string | null
+//  description: string | null
+//  game_id: string | null
+//  reviewed: boolean | null
+//  title: string
+//  url: string
+// * Update a video already submited
+export async function updateVideo(videoData: videoData, videoId: string) {
+  const supabase = createClient()
+  const user = (await supabase.auth.getUser()).data.user
+
+  if (!user) redirect('/login')
+
+  const videofields = { ...videoData, user_id: user.id }
+
+  const { data, error } = await supabase
+    .from('videos')
+    .update({
+      title: videoData.title,
+      description: videoData.description,
+      category_id: videoData.category_id,
+      game_id: videoData.game_id,
+    })
+    .eq('id', videoId)
+    .select()
+
+  if (error) {
+    return {
+      error: { error: error.code, message: error.message },
+    }
+  } else {
+    return { success: true }
+  }
 }
 
 // get video games data, and categories
@@ -279,7 +316,7 @@ export async function getGamesAndCategories() {
   }
 }
 
-// *
+// * get signed in user profile
 export async function getSignedInUserProfile() {
   const supabase = createClient()
   const userSession = (await supabase.auth.getSession()).data.session

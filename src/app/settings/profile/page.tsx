@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { Separator } from '@/components/ui/separator'
 import { createClient } from '@/lib/supabase/server'
 import ProfileForm from '@/components/ui/settings/ProfileForm'
@@ -5,6 +6,12 @@ import { getUserdata } from '@/lib/database/actions'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { Tables } from '@/lib/database/supabase.types'
+
+export const metadata: Metadata = {
+  title: 'Account Settings | Klipped',
+  description:
+    'Adjust your account settings to optimize your Klipped experience. Manage notifications, privacy settings, and more.',
+}
 
 export default async function SettingsProfilePage() {
   const supabase = createClient()

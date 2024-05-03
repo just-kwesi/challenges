@@ -3,6 +3,13 @@ import { getGameVideos, getGameInfo } from '@/lib/database/actions'
 import GameVideos from '@/components/ui/games/videos'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Game Clip Leaderboard | Klipped',
+  description:
+    "Check out today's top voted game clips from Apex Legends, Overwatch, and more on Klipped. Vote for your favorites and help them climb the daily ranks!",
+}
 
 export default async function Page({
   params,

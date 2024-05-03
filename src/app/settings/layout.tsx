@@ -5,8 +5,9 @@ import { Separator } from '@/components/ui/separator'
 import { SidebarNav } from '@/components/ui/settings/sidebar-nav'
 
 export const metadata: Metadata = {
-  title: 'Klipped',
-  description: 'Update user profile',
+  title: 'Account Settings | Klipped',
+  description:
+    'Adjust your account settings to optimize your Klipped experience. Manage notifications, privacy settings, and more.',
 }
 
 const sidebarNavItems = [

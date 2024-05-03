@@ -1,12 +1,20 @@
 import dynamic from 'next/dynamic'
+import { Metadata } from 'next'
 
+import { AlertCircleIcon } from 'lucide-react'
+import { toast } from '@/components/ui/use-toast'
 import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
 import { getVideo, hasVoted } from '@/lib/database/actions'
-
 import { VideoDetails } from '@/components/ui/videos/video-details'
 import { Vote } from '@/components/ui/videos/vote-component'
-import { toast } from '@/components/ui/use-toast'
+
+export const metadata: Metadata = {
+  title: 'Game Clip | Klipped',
+  description: 'Watch, and vote on this clip on Klipped.',
+}
+
 // Import VideoPlayer dynamically and disable SSR
 const VideoPlayerNoSSR = dynamic(
   () => import('@/components/ui/video-player/video-player'),
@@ -66,7 +74,17 @@ export default async function Page({
             username={success[0].profiles!.username as string}
             category={success[0].categories?.name as string}
           />
-          <Vote voted={voted} videoId={videoId} />
+
+          <div className="px-4">
+            <Vote voted={voted} videoId={videoId} />
+            <Alert>
+              <AlertCircleIcon className="h-5 w-5" />
+              <AlertTitle>Heads up!</AlertTitle>
+              <AlertDescription>
+                You can add components to your app using the cli.
+              </AlertDescription>
+            </Alert>
+          </div>
         </div>
       )}
     </main>

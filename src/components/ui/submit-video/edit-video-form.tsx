@@ -4,10 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { submitVideo, GameCategories } from '@/lib/database/actions'
+import { updateVideo } from '@/lib/database/actions'
 import React, { ChangeEvent } from 'react'
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
+import { EditVideoType } from '@/lib/database/types'
 
 import {
   Form,
@@ -29,16 +29,6 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
-import { ScrollArea } from '@/components/ui/scroll-area'
-
 const videoFormSchema = z.object({
   game: z.string({
     required_error: 'Please select the game of the video.',
@@ -55,9 +45,6 @@ const videoFormSchema = z.object({
     .string()
     .max(900, { message: 'Description must be less than 900 characters' })
     .min(10, { message: 'Description must be more than 10 characters' }),
-  acceptTerms: z.boolean().refine((val) => val, {
-    message: 'Please read and accept the terms and condtions',
-  }),
 })
 
 type VideoFormValues = z.infer<typeof videoFormSchema>
@@ -65,15 +52,19 @@ type VideoFormValues = z.infer<typeof videoFormSchema>
 interface VideoSubmissionFormProps {
   onVideoUrlChange: (url: string) => void
   data: any
+  videoDetails: EditVideoType
+  videoId: string
   // Include other props as needed
 }
 
 export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
   data,
   onVideoUrlChange,
+  videoDetails,
+  videoId,
 }) => {
-  const { error, gamesData, categoriesData } = data
   const router = useRouter()
+  const { error, gamesData, categoriesData } = data
   if (error) {
     toast({
       variant: 'destructive',
@@ -85,9 +76,9 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
     resolver: zodResolver(videoFormSchema),
     mode: 'onChange',
     defaultValues: {
-      linkToVideo: '',
-      description: '',
-      title: '',
+      linkToVideo: videoDetails.url,
+      description: videoDetails.description || '',
+      title: videoDetails.title,
     },
   })
 
@@ -101,7 +92,8 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
       category_id: category,
       reviewed: false,
     }
-    const { success, error } = await submitVideo(vidData)
+    const { success, error } = await updateVideo(vidData, videoId)
+
     if (error) {
       toast({
         title: 'Uh oh!',
@@ -113,7 +105,7 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
         title: 'Success!',
         description: (
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <p className="text-white">Video Submission has been completed</p>
+            <p className="text-white">Your changes have been submitted!</p>
           </pre>
         ),
       })
@@ -203,6 +195,7 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
               </FormLabel>
               <FormControl>
                 <Input
+                  disabled
                   placeholder="https://"
                   {...field}
                   onChange={(e) => {
@@ -256,77 +249,7 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
             </FormItem>
           )}
         />
-
-        <FormField
-          control={form.control}
-          name="acceptTerms"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <div className="space-y-1 leading-none">
-                {/* <FormLabel>Accept terms and conditions</FormLabel> */}
-                <FormLabel>
-                  <Dialog>
-                    <DialogTrigger className="underline underline-offset-4 hover:text-primary">
-                      Accept terms and conditions
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Video Submission Guidelines</DialogTitle>
-                        <DialogDescription>
-                          <ScrollArea className="h-[400px]  rounded-md border p-4 space-y-2 px-2">
-                            <div className="space-y-2 text-left">
-                              <ul className="space-y-2 list-disc [&>li]:mt-2">
-                                <li>
-                                  <span>
-                                    <strong>Relevance:</strong>
-                                  </span>
-                                  All videos submitted must directly pertain to
-                                  the game they are categorized under. Videos
-                                  that do not clearly relate to the specified
-                                  game will not be accepted.
-                                </li>
-                                <li>
-                                  <span>
-                                    <strong>Duration:</strong>
-                                  </span>
-                                  Videos submitted to the platform must not
-                                  exceed 5 minutes (300 seconds) in length.
-                                  Videos longer than this limit will not be
-                                  accepted for upload.
-                                </li>
-                                <li>
-                                  <span>
-                                    <strong>Quality:</strong>
-                                  </span>
-                                  Submitted videos should be of good quality,
-                                  both in terms of audio and visual components.
-                                  Videos with poor resolution, significant
-                                  artifacts, or distorted audio may be rejected.
-                                </li>
-                              </ul>
-                            </div>
-                          </ScrollArea>
-                        </DialogDescription>
-                      </DialogHeader>
-                    </DialogContent>
-                  </Dialog>
-                </FormLabel>
-              </div>
-            </FormItem>
-          )}
-        ></FormField>
-        {form.formState.errors.acceptTerms && (
-          <p className="text-sm font-medium text-destructive">
-            {form.formState.errors.acceptTerms.message}
-          </p>
-        )}
-        <Button type="submit">Submit Video</Button>
+        <Button type="submit">Edit Video</Button>
       </form>
     </Form>
   )

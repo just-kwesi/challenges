@@ -10,6 +10,14 @@ import Link from 'next/link'
 import { Separator } from '@/components/ui/separator'
 import { DataTable } from '@/components/ui/charts/charts-table'
 import { columns } from './columns'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Game Clip Leaderboard | Klipped',
+  description:
+    "Check out today's top voted game clips from Apex Legends, Overwatch, and more on Klipped. Vote for your favorites and help them climb the daily ranks!",
+}
+
 // Import VideoPlayer dynamically and disable SSR
 const VideoPlayerNoSSR = dynamic(
   () => import('@/components/ui/video-player/video-player'),

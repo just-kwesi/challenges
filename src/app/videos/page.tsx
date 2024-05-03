@@ -5,6 +5,12 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { columns } from './columns'
 import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Latest Submitted Clips | Clips Status',
+  description: 'Check the status of previouly submitted clips',
+}
 
 export default async function VideosPage() {
   const { error, success } = await getUserVideos()

@@ -1,6 +1,13 @@
 import { SidebarDoc } from '@/lib/config/docs'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { DocsSidebarNav } from '@/components/ui/layout/sidebar-nav'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Game Clips | Klipped',
+  description:
+    'Discover and vote on the best game clips from Apex Legends, Overwatch, Call of Duty, and more. Join Klipped today to start sharing your own highlights!',
+}
 
 export default async function GamesLayout({
   children,

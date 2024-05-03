@@ -1,10 +1,20 @@
 import dynamic from 'next/dynamic'
-import { useSearchParams } from 'next/navigation'
+import { Metadata } from 'next'
+import { AlertCircleIcon } from 'lucide-react'
+
 import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
+import { toast } from '@/components/ui/use-toast'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+
 import { getVideo, hasVoted } from '@/lib/database/actions'
 import { VideoDetails } from '@/components/ui/videos/video-details'
 import { Vote } from '@/components/ui/videos/vote-component'
-import { toast } from '@/components/ui/use-toast'
+
+export const metadata: Metadata = {
+  title: 'Game Clip | Klipped',
+  description: 'Watch, and vote on this clip on Klipped.',
+}
+
 const VideoPlayerNoSSR = dynamic(
   () => import('@/components/ui/video-player/video-player'),
   {
@@ -76,7 +86,17 @@ export default async function Page({
             }
             username={success[0].profiles!.username as string}
           />
-          <Vote voted={voted} videoId={id} />
+          <div className="px-4 space-y-2">
+            <Vote voted={voted} videoId={id} />
+            <Alert>
+              <AlertCircleIcon className="h-5 w-5" />
+              <AlertTitle>Heads up!</AlertTitle>
+              <AlertDescription>
+                You need to log in to vote. Your vote counts towards the
+                leaderboard rankings!
+              </AlertDescription>
+            </Alert>
+          </div>
         </div>
       )}
     </main>

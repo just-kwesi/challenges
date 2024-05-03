@@ -1,8 +1,16 @@
+import { Metadata } from 'next'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Videos from '@/components/ui/videos/videos'
 import { Separator } from '@/components/ui/separator'
 import { getUserDetails } from '@/lib/database/actions'
 import { redirect } from 'next/navigation'
+
+export const metadata: Metadata = {
+  title: 'User Gaming Profile on Klipped',
+  description:
+    "Explore User's top game clips, recent uploads, and leaderboard ranks on Klipped. Join the community to like, comment, and share!",
+}
+
 export default async function UserProfile({
   params,
 }: {

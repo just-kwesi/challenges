@@ -112,7 +112,6 @@ export const columns: ColumnDef<videoRowData>[] = [
     id: 'actions',
     cell: ({ row }) => {
       const video = row.original
-      //   console.log(`video, ${video}`)
 
       return (
         <DropdownMenu>
@@ -124,14 +123,10 @@ export const columns: ColumnDef<videoRowData>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(video.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={`/edit-video/${video.id}`}>Edit Video Details</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
