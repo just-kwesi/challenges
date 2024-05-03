@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Metadata } from 'next'
 import { useRouter } from 'next/navigation'
 import { z } from 'zod'
 import { Button } from '@/components/ui/button'
@@ -17,12 +16,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/use-toast'
-
-export const metadata: Metadata = {
-  title: 'Reset Password | Access Your Account',
-  description:
-    'Reset Password to submit your game clips, vote on other highlights, and customize your klipped experience.',
-}
 
 const FormSchema = z
   .object({
