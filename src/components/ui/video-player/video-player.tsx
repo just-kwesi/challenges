@@ -34,7 +34,7 @@ const VideoPlayer = ({ url }: { url: string }) => {
   return (
     <div className="relative w-auto h-auto min-h-80">
       <ReactPlayer
-        url={url}
+        url={`${url}?parent=www.klipped.gg`}
         className="react-player absolute"
         width="100%"
         height="100%"
