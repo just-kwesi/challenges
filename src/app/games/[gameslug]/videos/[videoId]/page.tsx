@@ -7,6 +7,14 @@ import { getVideo, hasVoted } from '@/lib/database/actions'
 import { VideoDetails } from '@/components/ui/videos/video-details'
 import { Vote } from '@/components/ui/videos/vote-component'
 import { toast } from '@/components/ui/use-toast'
+
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Game Clip | Klipped',
+  description: 'Watch, and vote on this clip on Klipped.',
+}
+
 // Import VideoPlayer dynamically and disable SSR
 const VideoPlayerNoSSR = dynamic(
   () => import('@/components/ui/video-player/video-player'),

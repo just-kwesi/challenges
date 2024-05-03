@@ -1,6 +1,13 @@
 import Oauth from '@/components/ui/auth/oauth-component'
 import { SignupForm } from '@/components/ui/auth/signup'
 import Terms from '@/components/ui/auth/terms'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Sign Up to Klipped | Submit Video Clips',
+  description:
+    'Sign Up to submit your game clips, vote on other highlights, and customize your klipped experience.',
+}
 export default function Signup() {
   return (
     <main>
