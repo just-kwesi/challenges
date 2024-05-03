@@ -39,6 +39,13 @@ const VideoPlayer = ({ url }: { url: string }) => {
         width="100%"
         height="100%"
         controls={true} // This enables the native controls for YouTube, Vimeo,
+        config={{
+          file: {
+            attributes: {
+              crossOrigin: 'true',
+            },
+          },
+        }}
       />
     </div>
   )
