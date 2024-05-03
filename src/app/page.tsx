@@ -25,7 +25,7 @@ export default async function Home() {
         </aside>
         <div className="flex justify-center flex-col">
           <Alert className="my-5 w-full">
-            <InfoIcon className="h-4 w-4" />
+            <InfoIcon className="h-5 w-5" />
             <AlertTitle>Create an Account to Submit Videos</AlertTitle>
             <AlertDescription>
               Please sign up to submit your videos. We greatly appreciate each
