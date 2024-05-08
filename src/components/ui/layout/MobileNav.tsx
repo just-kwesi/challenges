@@ -35,20 +35,6 @@ export function MobileNav() {
         </MobileLink>
 
         <ScrollArea className="h-full pb-6 pr-6 lg:py-8">
-          {/* <div className="flex flex-col space-y-3">
-            {docsConfig.mainNav?.map(
-              (item) =>
-                item.href && (
-                  <MobileLink
-                    key={item.href}
-                    href={item.href}
-                    onOpenChange={setOpen}
-                  >
-                    {item.title}
-                  </MobileLink>
-                )
-            )}
-          </div> */}
           <div className="flex flex-col space-y-2">
             {SidebarDoc.map((item, index) => (
               <div key={index} className="flex flex-col space-y-3 pt-6">

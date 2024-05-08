@@ -335,8 +335,9 @@ export async function getSignedInUserProfile() {
     .single()
 
   if (error) {
-    redirect('/error')
+    redirect('/login')
   }
+
   return data
 }
 
@@ -351,7 +352,7 @@ export async function getUserDetails(userId: string) {
     .single()
 
   if (error) {
-    redirect('/error')
+    redirect('/login')
   }
   return data
 }

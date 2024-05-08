@@ -26,7 +26,9 @@ export function UserNav({
   const pathname = usePathname()
   const username = userProfile ? userProfile.username : 'example_username'
   const fullName = userProfile ? userProfile.full_name : 'Example Name'
-  const avartarURL = `https://ui-avatars.com/api/?name=${username}&background=random`
+  const avartarURL = userProfile?.avatar_url
+    ? userProfile?.avatar_url
+    : `https://ui-avatars.com/api/?name=${username}&background=random`
 
   if (!username) {
     redirect('/settings/profile')

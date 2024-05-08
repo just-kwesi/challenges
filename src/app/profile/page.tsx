@@ -38,7 +38,7 @@ export default async function UserProfile() {
       <div className="flex flex-col justify-between max-w-lg sm:flex-row mt-8 gap-9 mx-auto">
         <Avatar className="h-40 w-40  max-h-48 max-w-48 mx-auto">
           <AvatarImage src={avartarURL} alt="user avartar" />
-          <AvatarFallback>EX</AvatarFallback>
+          <AvatarFallback>{`${username}s' avatar`}</AvatarFallback>
         </Avatar>
         <div className="space-y-2 sm:text-left text-center">
           <div className="my-2 space-y-1">
