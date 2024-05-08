@@ -6,6 +6,7 @@ import { getUserdata } from '@/lib/database/actions'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { Tables } from '@/lib/database/supabase.types'
+import Avatar from '@/components/ui/settings/image-upload'
 
 export const metadata: Metadata = {
   title: 'Account Settings | Klipped',
@@ -28,6 +29,13 @@ export default async function SettingsProfilePage() {
     revalidatePath('/', 'layout')
     redirect('/login')
   }
+
+  const avatarUrl = userData.avatar_url
+    ? userData.avatar_url
+    : `https://ui-avatars.com/api/?name=${userData.username}&background=random`
+
+  console.log(avatarUrl)
+
   return (
     <div className="space-y-6 mt-3">
       <div>
@@ -37,6 +45,11 @@ export default async function SettingsProfilePage() {
         </p>
       </div>
       <Separator />
+      <Avatar
+        uid={user?.id ?? null}
+        url={avatarUrl}
+        username={userData.username}
+      />
       <ProfileForm userData={userData} />
     </div>
   )

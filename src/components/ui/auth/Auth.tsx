@@ -33,7 +33,7 @@ export default async function AuthButton() {
       <div className="ml-auto flex items-center space-x-4">
         <Button asChild>
           <Link href="/submit-video">
-            <FileVideo className="mr-2 h-4 w-4" /> Submit
+            <FileVideo className="mr-2 h-4 w-4" /> Submit Video
           </Link>
         </Button>
         <UserNav signout={signOut} userProfile={userProfile || undefined} />

@@ -60,7 +60,7 @@ export function VideoCard({
                 height={32}
                 width={32}
               />
-              <AvatarFallback>{`${username}'s avatar`}</AvatarFallback>
+              <AvatarFallback>{`${username}s' avatar`}</AvatarFallback>
             </Avatar>
           </Link>
           <div>
