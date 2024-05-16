@@ -197,7 +197,7 @@ export async function updateUserprofile({
 type videoDataAfterSubmit = Tables<'videos'>
 export type videoData = Omit<
   videoDataAfterSubmit,
-  'id' | 'created_at' | 'submitted_on' | 'user_id'
+  'id' | 'created_at' | 'submitted_on' | 'user_id' | 'approved'
 >
 
 // * SUBMIT VIDEO TO DATABASE
