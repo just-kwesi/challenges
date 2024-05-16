@@ -371,7 +371,7 @@ export async function getUserVideos() {
       .from('videos')
       .select(
         `
-    id, title, description ,url,reviewed,
+    id, title, description ,url,reviewed,approved,
     games (
       name
     ), 

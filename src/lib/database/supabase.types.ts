@@ -132,6 +132,7 @@ export type Database = {
       }
       videos: {
         Row: {
+          approved: boolean | null
           category_id: string | null
           created_at: string | null
           description: string | null
@@ -144,6 +145,7 @@ export type Database = {
           user_id: string | null
         }
         Insert: {
+          approved?: boolean | null
           category_id?: string | null
           created_at?: string | null
           description?: string | null
@@ -156,6 +158,7 @@ export type Database = {
           user_id?: string | null
         }
         Update: {
+          approved?: boolean | null
           category_id?: string | null
           created_at?: string | null
           description?: string | null
@@ -686,6 +689,7 @@ export type Database = {
     Views: {
       apex: {
         Row: {
+          approved: boolean | null
           category_id: string | null
           created_at: string | null
           description: string | null
@@ -1023,6 +1027,7 @@ export type Database = {
       }
       cod: {
         Row: {
+          approved: boolean | null
           category_id: string | null
           created_at: string | null
           description: string | null
@@ -1360,6 +1365,7 @@ export type Database = {
       }
       fortnite: {
         Row: {
+          approved: boolean | null
           category_id: string | null
           created_at: string | null
           description: string | null
@@ -1697,6 +1703,7 @@ export type Database = {
       }
       overwatch: {
         Row: {
+          approved: boolean | null
           category_id: string | null
           created_at: string | null
           description: string | null
@@ -2034,6 +2041,7 @@ export type Database = {
       }
       valorant: {
         Row: {
+          approved: boolean | null
           category_id: string | null
           created_at: string | null
           description: string | null

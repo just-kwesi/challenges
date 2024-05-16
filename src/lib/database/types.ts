@@ -25,6 +25,7 @@ export type videoRowData = {
   description: string | null
   url: string
   reviewed: boolean | null
+  approved: boolean | null
   games: {
     name: string
   } | null
