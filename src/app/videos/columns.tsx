@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ColumnDef } from '@tanstack/react-table'
 
 import { videoRowData } from '@/lib/database/types'
-import { FileCheckIcon, HourglassIcon } from 'lucide-react'
+import { FileCheckIcon, HourglassIcon, BanIcon } from 'lucide-react'
 
 import { MoreHorizontal } from 'lucide-react'
 
@@ -86,20 +86,32 @@ export const columns: ColumnDef<videoRowData>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
-      const state: boolean = row.original.reviewed!
+      const reviewed: boolean = row.original.reviewed!
+      const approved: boolean = row.original.approved!
 
       return (
         <div className="flex w-[100px] items-center">
-          {state ? (
+          {approved && (
             <>
-              <FileCheckIcon className="h-4 w-4 mr-2" />
-              <p className="text-sm text-green-600 bg-green-100">Reviewed</p>
+              <FileCheckIcon className="h-4 w-4 mr-2  text-green-700" />
+              <p className="text-sm text-green-700">Accepted</p>
             </>
-          ) : (
+          )}
+
+          {!reviewed && (
             <>
               <HourglassIcon className="h-4 w-4 mr-2 text-destructive bg-destructive-forground" />
               <p className="text-sm text-destructive bg-destructive-forground ">
                 In Review
+              </p>
+            </>
+          )}
+
+          {reviewed && !approved && (
+            <>
+              <BanIcon className="h-4 w-4 mr-2 text-destructive bg-destructive-forground" />
+              <p className="text-sm text-destructive bg-destructive-forground ">
+                Rejected
               </p>
             </>
           )}

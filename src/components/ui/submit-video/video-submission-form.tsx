@@ -296,7 +296,7 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
                                     <strong>Duration:</strong>
                                   </span>
                                   Videos submitted to the platform must not
-                                  exceed 5 minutes (300 seconds) in length.
+                                  exceed 10 minutes (600 seconds) in length.
                                   Videos longer than this limit will not be
                                   accepted for upload.
                                 </li>

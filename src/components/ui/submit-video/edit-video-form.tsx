@@ -91,6 +91,7 @@ export const SubmissionForm: React.FC<VideoSubmissionFormProps> = ({
       game_id: game,
       category_id: category,
       reviewed: false,
+      approved: false,
     }
     const { success, error } = await updateVideo(vidData, videoId)
 
