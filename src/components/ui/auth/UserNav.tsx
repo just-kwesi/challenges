@@ -69,7 +69,6 @@ export function UserNav({
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            {' '}
             <Link
               href="/videos"
               className={cn(

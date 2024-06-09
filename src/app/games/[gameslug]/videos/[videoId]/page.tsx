@@ -81,7 +81,8 @@ export default async function Page({
               <AlertCircleIcon className="h-5 w-5" />
               <AlertTitle>Heads up!</AlertTitle>
               <AlertDescription>
-                You can add components to your app using the cli.
+                You need to log in to vote. Your vote counts towards the
+                leaderboard rankings!
               </AlertDescription>
             </Alert>
           </div>
