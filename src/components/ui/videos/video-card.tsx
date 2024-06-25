@@ -33,25 +33,20 @@ export function VideoCard({
   userPage = false,
 }: VideoCardProps) {
   return (
-    // <div className="sm:max-w-[350px] min-h-[300px] rounded overflow-hidden shadow-lg sm:min-w-[250px] border w-dvw">
-    <div className="sm:max-w-[350px] min-h-auto rounded overflow-hidden shadow-lg sm:min-w-[200px] border w-[300px]">
-      <div className="relative w-auto">
-        {(userPage && (
+    <div className="w-full col-span-1 max-w-[350px] mx-auto border h-[230px] flex flex-col rounded-lg shadow-lg transition-transform transform hover:scale-105 justify-center">
+      <div className="relative w-full h-[200px] rounded-t-lg overflow-hidden">
+        {userPage ? (
           <Link href={`/videos/${id}`} passHref>
             <VideoPlayerNoSSR url={thumbnail} />
           </Link>
-        )) || (
+        ) : (
           <Link href={`videos/${id}`} passHref>
             <VideoPlayerNoSSR url={thumbnail} />
           </Link>
         )}
-
-        {/* <p className="absolute bottom-2 right-2 rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-xs font-semibold">
-          {duration}
-        </p> */}
       </div>
-      <div className="px-6 py-6">
-        <div className="flex items-center space-x-1 gap-2">
+      <div className="px-4 py-2 pb-4 flex-1">
+        <div className="flex items-end space-x-2">
           <Link href={`/user/${username}`} passHref>
             <Avatar>
               <AvatarImage
@@ -59,22 +54,18 @@ export function VideoCard({
                 alt={`${username}'s avatar`}
                 height={32}
                 width={32}
+                className="rounded-full"
               />
-              <AvatarFallback>{`${username}s' avatar`}</AvatarFallback>
+              <AvatarFallback>{`${username[0]}`}</AvatarFallback>
             </Avatar>
           </Link>
-          <div>
-            <p className="text-base">{title}</p>
+          <div className="flex-1 min-w-0">
+            <p className="text-base font-semibold truncate">{title}</p>
             <Link href={`/user/${username}`} passHref>
-              <p className="text-sm text-muted-foreground">@{username}</p>
+              <p className="text-sm text-gray-500 truncate">@{username}</p>
             </Link>
           </div>
         </div>
-
-        {/* <div className="flex justify-between items-center text-xs text-muted-foreground mt-6">
-          <p>{timeSubmitted}</p>
-          <p>{votes} votes</p>
-        </div> */}
       </div>
     </div>
   )

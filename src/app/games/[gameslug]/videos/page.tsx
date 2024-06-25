@@ -1,7 +1,7 @@
-import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
-import { getGameVideos, getGameInfo } from '@/lib/database/actions'
-import GameVideos from '@/components/ui/games/videos'
 import { Metadata } from 'next'
+import Breadcrumbs from '@/components/ui/videos/breadcrumbs'
+import { getGameInfo } from '@/lib/database/actions'
+import GameVideos from '@/components/ui/games/videos'
 
 export const metadata: Metadata = {
   title: 'Game Clips | Klipped',
@@ -17,7 +17,7 @@ export default async function Page({
   const game = params.gameslug
   const gameInfo = await getGameInfo(game)
   return (
-    <main>
+    <main className="w-full">
       {gameInfo.success && (
         <>
           <Breadcrumbs

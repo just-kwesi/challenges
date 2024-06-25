@@ -75,11 +75,11 @@ export default async function Page({
             category={success[0].categories?.name as string}
           />
 
-          <div className="px-4 space-y-4">
+          <div className="px-4 space-y-4 w-full">
             <Vote voted={voted} videoId={videoId} />
             <Alert>
               <AlertCircleIcon className="h-5 w-5" />
-              <AlertTitle>Heads up!</AlertTitle>
+              <AlertTitle>Take Note!</AlertTitle>
               <AlertDescription>
                 You need to log in to vote. Your vote counts towards the
                 leaderboard rankings!
