@@ -444,7 +444,11 @@ const videoMapping = {
   '1d1570ff-123b-4be5-97da-d1ac04f6723d': 'fortnite',
 }
 export async function getGameVideos(offset: number, gameId: string) {
+  const PAGE_COUNT = 15
   try {
+    const from = offset * PAGE_COUNT
+    const to = from + PAGE_COUNT - 1
+
     const supabase = createClient()
     const videTable = videoMapping[gameId as keyof typeof videoMapping]
 
@@ -465,7 +469,7 @@ export async function getGameVideos(offset: number, gameId: string) {
       )
       .eq('game_id', gameId)
       // .not('id', 'in', `(${clipsSeen.join(',')})`)
-      .range(offset, offset + 10)
+      .range(from, to)
 
     type videosData = QueryData<typeof videosQuery>
 
