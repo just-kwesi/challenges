@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
+import Script from 'next/script'
 import { cn } from '@/lib/utils'
 import './globals.css'
 import { siteConfig } from '@/lib/config/site'
@@ -103,6 +104,11 @@ export default function RootLayout({
             <Analytics />
             <Toaster />
             <SiteFooter />
+            <Script
+              defer
+              src="https://umami-analytics-weld-nu.vercel.app/script.js"
+              data-website-id="1a88793d-d455-4425-8b11-c70859b84cd2"
+            />
           </div>
         </ThemeProvider>
       </body>
