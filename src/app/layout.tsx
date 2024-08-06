@@ -105,9 +105,7 @@ export default function RootLayout({
             <Toaster />
             <SiteFooter />
             <Script
-              defer
-              src="https://umami-analytics-weld-nu.vercel.app/script.js"
-              data-website-id="1a88793d-d455-4425-8b11-c70859b84cd2"
+              defer src="https://analytics-weld-nu.vercel.app/script.js" data-website-id="1a88793d-d455-4425-8b11-c70859b84cd2"
             />
           </div>
         </ThemeProvider>
